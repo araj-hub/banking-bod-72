@@ -756,3 +756,109 @@ Consolidated list of all assets needed across all 3 slides. Assign an owner and 
 ---
 
 *End of specification document.*
+
+
+---
+
+<a id="product-mockups"></a>
+## Product Experience Mockups — Asset Placement Guide
+
+> **Purpose:** Each slide now includes high-fidelity CSS mockups as placeholders. This section specifies exactly what real assets should replace them, where to source them, and the exact dimensions/framing needed.
+
+---
+
+### Slide 2 — Square Banking Product Experiences
+
+#### Mockup Position 1: ChAD Onboarding (Bottom-left, under Act 1 column)
+
+| Property | Specification |
+|---|---|
+| **Frame type** | Browser/laptop frame |
+| **Dimensions** | ~480 × 300 px content area |
+| **What to replace with** | Screenshot of the Square Dashboard ChAD onboarding modal as seen by a Sole Proprietor on web |
+| **Source owner** | Square Banking — ChAD team |
+| **Framing notes** | Capture the modal/card overlay on the Dashboard. Include the "Set up Square Checking" headline and CTA button. Crop to just the modal + slight Dashboard background blur. |
+| **Fallback** | If screenshot unavailable, use the CSS mockup as-is — it's representative enough for board context |
+
+#### Mockup Position 2: Pay Anyone Flow (Bottom-center, under Act 2 column — HERO POSITION)
+
+| Property | Specification |
+|---|---|
+| **Frame type** | Browser/laptop frame (larger than others) |
+| **Dimensions** | ~540 × 340 px content area |
+| **What to replace with** | Screenshot or screen recording still of the Pay Anyone bill payment flow showing: vendor search → payment via Square Credit Card → ACH delivery confirmation |
+| **Source owner** | Square Banking — Bill Pay / Pay Anyone team |
+| **Framing notes** | Ideal: 2-3 step flow shown side by side (search → confirm → success). If single screenshot, capture the payment confirmation screen showing the Credit Card as payment method, vendor name, amount, delivery method, and cash back earned. |
+| **Why this is hero** | This is the single most important product moment in the deck. It demonstrates the Credit Card + Pay Anyone flywheel in one screen. The board should be able to look at this and immediately understand the value prop. |
+| **Fallback** | The CSS mockup shows a realistic Pay Anyone flow — usable as-is if real screenshot is delayed |
+
+#### Mockup Position 3: High Yield Savings (Bottom-right, under Act 3 column)
+
+| Property | Specification |
+|---|---|
+| **Frame type** | Mobile phone frame (iPhone) |
+| **Dimensions** | ~220 × 430 px (9:19.5 aspect ratio) |
+| **What to replace with** | Screenshot of the Square Banking mobile app showing the High Yield Savings account screen with APY badge, balance, and interest earned |
+| **Source owner** | Square Banking — Savings team / Square Financial Services |
+| **Framing notes** | Capture the main savings account view. Must show: account balance, APY rate prominently, interest earned. If pre-launch, use a staging/demo environment screenshot. |
+| **Launch timing note** | HYS launches mid-May. If this deck is presented before launch, the CSS mockup or a staging screenshot is appropriate. Label as "pre-launch preview" if using non-production UI. |
+| **Fallback** | CSS mockup shows representative UI with 3.75% APY, balance, and interest earned |
+
+---
+
+### Slide 3 — Cash App Banking Product Experiences
+
+#### Mockup Position A: Cash App Tag (Center-top)
+
+| Property | Specification |
+|---|---|
+| **Frame type** | Product photo / illustration (no device frame) |
+| **Dimensions** | ~280 × 280 px |
+| **What to replace with** | Official Cash App Tag product photo — the physical NFC device. Ideally: the Tag shown tapping against a contactless terminal, or a hero product shot on dark background. |
+| **Source owner** | Cash App Hardware team / Cash App Marketing |
+| **Framing notes** | Dark background preferred (matches slide). If the Tag is photographed on white, request a dark-background variant or use the CSS illustration. A short video/GIF of the tap-to-pay moment would be even more impactful — the HTML supports replacing the static mockup with a GIF. |
+| **Animation note** | The CSS mockup includes a pulsing green glow animation. If using a static photo, consider adding a subtle CSS glow around the image to maintain the visual energy. |
+| **Fallback** | CSS/SVG illustration of the Tag with animated green pulse — effective for board context |
+
+#### Mockup Position B: Debit Flex Card (Center-bottom)
+
+| Property | Specification |
+|---|---|
+| **Frame type** | Card render (no device frame) |
+| **Dimensions** | ~300 × 189 px (standard card 1.586:1 ratio) |
+| **What to replace with** | Official Debit Flex card render showing the physical card design. Ideally with the debit↔credit toggle concept visualized (if marketing materials exist showing this). |
+| **Source owner** | Cash App Card team / Cash App Design |
+| **Framing notes** | Dark card on dark background. If the card design is confidential/unreleased, use the CSS mockup. The key visual element is communicating "one card, two modes" — if a real render doesn't convey this, the CSS mockup with the toggle UI may actually be more effective for the board. |
+| **Fallback** | CSS card render with debit↔credit toggle — communicates the concept clearly |
+
+---
+
+### Asset Checklist
+
+Use this checklist to track asset collection before the Figma build:
+
+| # | Asset | Owner | Status | Notes |
+|---|---|---|---|---|
+| 1 | ChAD onboarding screenshot (web, Sole Proprietor) | Square Banking — ChAD | ☐ Needed | Dashboard modal view |
+| 2 | Pay Anyone flow screenshot (vendor search + payment confirm) | Square Banking — Bill Pay | ☐ Needed | **HERO ASSET — prioritize** |
+| 3 | Square Credit Card render (physical card) | Square Banking — Credit Card | ☐ Needed | For optional use alongside Pay Anyone |
+| 4 | High Yield Savings app screenshot (mobile) | Square Banking — Savings / SFS | ☐ Needed | Staging OK if pre-launch |
+| 5 | Cash App Tag product photo (dark background) | Cash App Hardware / Marketing | ☐ Needed | Photo or GIF of tap moment |
+| 6 | Cash App Tag tap-to-pay video/GIF | Cash App Hardware | ☐ Nice to have | 3-5 second loop |
+| 7 | Debit Flex card render | Cash App Card / Design | ☐ Needed | Physical card design |
+| 8 | Debit Flex app UI (debit↔credit toggle) | Cash App Card | ☐ Nice to have | In-app toggle screenshot |
+| 9 | Digital wallet provisioning screen | Cash App Card | ☐ Nice to have | Apple Pay add-to-wallet flow |
+| 10 | Cash App Green membership UI | Cash App Growth | ☐ Nice to have | New membership concept if available |
+| 11 | Square Custom Report Builder screenshot | Square Data / Intelligence Platform | ☐ Optional | For appendix if needed |
+| 12 | Phone Plans UI mockup | Cash App — Phone Plans | ☐ Nice to have | AT&T plan selection screen |
+| 13 | Apex migration dashboard/progress | Cash App Investing | ☐ Optional | Internal migration tracker |
+
+### Integration Instructions for Designer
+
+When replacing CSS mockups with real assets in Figma:
+
+1. **Maintain the frame dimensions** listed above — crop/resize the real screenshot to fit
+2. **Keep the dark background context** — if the real screenshot has a light background, place it inside the same frame style (browser frame or phone frame) used in the CSS mockup
+3. **Keep the `[REPLACE: ...]` labels** in the working Figma file until final review, then hide/delete them
+4. **If an asset isn't available by deck deadline**, the CSS mockup is designed to be presentation-ready — use it as-is
+5. **For the Cash App Tag**: if you have video, embed it as a GIF in the Figma prototype for the presentation version. For the static PDF export, use the best still frame.
