@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Block Board of Directors · Meeting 72 · Banking</title>
+<style>
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; background: #000; }
+  body {
+    font-family: system-ui, -apple-system, 'SF Pro Display', 'Inter', sans-serif;
+    background: #000;
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ===== NAV ===== */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; justify-content: center; gap: 8px;
+    padding: 16px 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,.92) 60%, transparent);
+    pointer-events: none;
+  }
+  .nav a {
+    pointer-events: all;
+    display: inline-block; padding: 6px 18px;
+    border-radius: 100px; font-size: 13px; font-weight: 600;
+    color: #999; text-decoration: none;
+    border: 1px solid #333; background: rgba(17,17,17,.85);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    transition: all .25s ease;
+    letter-spacing: .02em;
+  }
+  .nav a:hover { color: #fff; border-color: #555; background: rgba(30,30,30,.9); }
+
+  /* ===== SLIDE CONTAINER ===== */
+  .slides-wrapper {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 72px 0 48px;
+    gap: 48px;
+  }
+  .slide {
+    width: 1920px; height: 1080px;
+    background: #000;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 32px 80px rgba(0,0,0,.6);
+    transform-origin: top center;
+    flex-shrink: 0;
+  }
+  .slide-inner {
+    width: 100%; height: 100%;
+    padding: 64px 80px 56px;
+    display: flex; flex-direction: column;
+    position: relative;
+  }
+
+  /* ===== VIEWPORT SCALING ===== */
+  @media (max-width: 1960px) {
+    .slide { transform: scale(calc((100vw - 40px) / 1920)); height: calc(1080px * ((100vw - 40px) / 1920)); }
+  }
+  @media (max-width: 1200px) {
+    .slide { transform: scale(calc((100vw - 32px) / 1920)); height: calc(1080px * ((100vw - 32px) / 1920)); }
+  }
+
+  /* ===== PRINT ===== */
+  @media print {
+    .nav { display: none; }
+    .slides-wrapper { padding: 0; gap: 0; }
+    .slide {
+      transform: none !important;
+      height: 1080px !important;
+      width: 1920px !important;
+      page-break-after: always;
+      box-shadow: none; border-radius: 0;
+    }
+    @page { size: 1920px 1080px; margin: 0; }
+    body { background: #000; }
+    .fade-in { opacity: 1 !important; transform: none !important; }
+  }
+
+  /* ===== TYPOGRAPHY ===== */
+  .tag { font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #999; }
+  .tag-blue { color: #006AFF; }
+  .tag-green { color: #00D632; }
+  .headline { font-size: 56px; font-weight: 800; line-height: 1.08; letter-spacing: -.025em; color: #fff; margin-top: 12px; }
+  .subheadline { font-size: 22px; font-weight: 400; color: #999; line-height: 1.45; margin-top: 12px; max-width: 900px; }
+
+  /* ===== CARDS ===== */
+  .metric-card {
+    background: #1A1A1A; border-radius: 14px; padding: 22px 26px;
+    transition: transform .2s ease;
+  }
+  .metric-card + .metric-card { margin-top: 12px; }
+  .metric-number { font-size: 36px; font-weight: 800; line-height: 1.1; letter-spacing: -.02em; }
+  .metric-number.blue { color: #006AFF; }
+  .metric-number.green { color: #00D632; }
+  .metric-label { font-size: 14px; font-weight: 600; color: #ccc; margin-top: 4px; }
+  .metric-sub { font-size: 12px; color: #777; margin-top: 3px; }
+
+  /* ===== FOOTER ===== */
+  .slide-footer {
+    position: absolute; bottom: 24px; left: 80px; right: 80px;
+    font-size: 11px; color: #444; letter-spacing: .04em;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  /* ===== ANIMATIONS ===== */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .fade-in.d1 { transition-delay: .1s; }
+  .fade-in.d2 { transition-delay: .2s; }
+  .fade-in.d3 { transition-delay: .3s; }
+  .fade-in.d4 { transition-delay: .4s; }
+  .fade-in.d5 { transition-delay: .5s; }
+  .fade-in.d6 { transition-delay: .6s; }
+
+  /* ===== SLIDE 2 COLUMNS ===== */
+  .three-col { display: flex; gap: 20px; flex: 1; }
+  .col-card {
+    flex: 1; background: #111; border-radius: 14px; padding: 28px 24px;
+    border-left: 4px solid #006AFF; display: flex; flex-direction: column; gap: 10px;
+    position: relative;
+  }
+  .col-card .icon { font-size: 28px; }
+  .col-card .col-title { font-size: 20px; font-weight: 700; color: #fff; }
+  .col-card .col-label { font-size: 12px; font-weight: 600; color: #006AFF; letter-spacing: .06em; text-transform: uppercase; }
+  .col-card .stat-row { display: flex; align-items: baseline; gap: 8px; margin-top: 4px; }
+  .col-card .stat-big { font-size: 32px; font-weight: 800; color: #fff; line-height: 1; }
+  .col-card .stat-text { font-size: 12px; color: #aaa; line-height: 1.3; }
+  .col-card .stat-muted { font-size: 11px; color: #666; }
+  .callout-box {
+    background: rgba(0,106,255,.08); border: 1px solid rgba(0,106,255,.2);
+    border-radius: 10px; padding: 12px 14px; margin-top: 6px;
+    font-size: 12px; color: #bbb; line-height: 1.45;
+  }
+  .callout-box strong { color: #006AFF; }
+
+  /* ===== SLIDE 3 LAYERS ===== */
+  .layer-stack { display: flex; flex-direction: column; gap: 8px; flex: 1; justify-content: center; }
+  .layer-bar {
+    border-radius: 10px; padding: 16px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    position: relative;
+    transition: transform .2s ease;
+  }
+  .layer-bar:hover { transform: translateX(4px); }
+  .layer-bar .layer-name { font-size: 17px; font-weight: 700; color: #fff; }
+  .layer-bar .layer-stat { font-size: 13px; color: #ccc; text-align: right; }
+  .layer-bar .layer-timing { position: absolute; left: -48px; top: 50%; transform: translateY(-50%); font-size: 11px; color: #555; font-weight: 600; }
+
+  /* ===== BOTTOM CALLOUT ===== */
+  .bottom-callout {
+    background: #111; border-radius: 14px; padding: 22px 28px;
+    border-left: 4px solid #00D632;
+    font-size: 15px; color: #ccc; line-height: 1.5;
+  }
+  .bottom-callout strong { color: #00D632; }
+
+  /* ===== TRANSITION TEXT ===== */
+  .transition-text {
+    font-size: 16px; color: #555; font-style: italic; text-align: center;
+    margin-top: auto; padding-bottom: 16px;
+  }
+
+  /* ===== FLYWHEEL ===== */
+  .flywheel-wrap { margin-top: 16px; display: flex; justify-content: center; align-items: center; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" role="navigation" aria-label="Slide navigation">
+  <a href="#slide-1">1 · Banking is Working</a>
+  <a href="#slide-2">2 · Square: Closing the Loop</a>
+  <a href="#slide-3">3 · Cash App: The Account</a>
+</nav>
+
+<div class="slides-wrapper">
+
+<!-- ============================================================ -->
+<!-- SLIDE 1 -->
+<!-- ============================================================ -->
+<div class="slide" id="slide-1">
+  <div class="slide-inner">
+    <!-- Header -->
+    <div class="fade-in">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <span class="tag">BANKING</span>
+        <span style="width:4px;height:4px;border-radius:50%;background:#444;display:inline-block;"></span>
+        <span class="tag">Q1 2026</span>
+      </div>
+      <h1 class="headline" style="margin-top:16px;">$1B+ in combined Banking GP</h1>
+      <p class="subheadline">Both Square and Cash App beating plan. Strongest quarter on record.</p>
+    </div>
+
+    <!-- Main content -->
+    <div style="display:flex;gap:36px;flex:1;margin-top:40px;min-height:0;">
+
+      <!-- LEFT: Chart -->
+      <div style="flex:0 0 58%;display:flex;flex-direction:column;" class="fade-in d2">
+        <svg viewBox="0 0 860 420" style="width:100%;flex:1;" xmlns="http://www.w3.org/2000/svg">
+          <!-- Grid lines -->
+          <line x1="80" y1="40" x2="80" y2="340" stroke="#222" stroke-width="1"/>
+          <line x1="80" y1="340" x2="820" y2="340" stroke="#333" stroke-width="1"/>
+          <line x1="80" y1="265" x2="820" y2="265" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="4,4"/>
+          <line x1="80" y1="190" x2="820" y2="190" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="4,4"/>
+          <line x1="80" y1="115" x2="820" y2="115" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="4,4"/>
+          <line x1="80" y1="40" x2="820" y2="40" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="4,4"/>
+
+          <!-- Y-axis labels -->
+          <text x="68" y="344" fill="#555" font-size="12" text-anchor="end" font-family="system-ui">$800M</text>
+          <text x="68" y="269" fill="#555" font-size="12" text-anchor="end" font-family="system-ui">$850M</text>
+          <text x="68" y="194" fill="#555" font-size="12" text-anchor="end" font-family="system-ui">$900M</text>
+          <text x="68" y="119" fill="#555" font-size="12" text-anchor="end" font-family="system-ui">$950M</text>
+          <text x="68" y="44" fill="#555" font-size="12" text-anchor="end" font-family="system-ui">$1.0B</text>
+
+          <!-- Data: Q4'24:850, Q1'25:880, Q2'25:920, Q3'25:950, Q4'25:980, Q1'26:1010 -->
+          <!-- Y mapping: 800=340, 1000=40 → y = 340 - (val-800)/200*300 -->
+          <!-- Q4'24: 850 → y=265, x=140 -->
+          <!-- Q1'25: 880 → y=220, x=276 -->
+          <!-- Q2'25: 920 → y=160, x=412 -->
+          <!-- Q3'25: 950 → y=115, x=548 -->
+          <!-- Q4'25: 980 → y=70,  x=684 -->
+          <!-- Q1'26: 1010 → y=25, x=820 → clamp to y=28 -->
+
+          <!-- Gradient area under line -->
+          <defs>
+            <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#006AFF" stop-opacity=".18"/>
+              <stop offset="100%" stop-color="#006AFF" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path d="M140,265 L276,220 L412,160 L548,115 L684,70 L820,28 L820,340 L140,340 Z" fill="url(#areaGrad)"/>
+
+          <!-- Line -->
+          <polyline points="140,265 276,220 412,160 548,115 684,70 820,28"
+            fill="none" stroke="#fff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+          <!-- Data dots -->
+          <circle cx="140" cy="265" r="4" fill="#333" stroke="#666" stroke-width="1.5"/>
+          <circle cx="276" cy="220" r="4" fill="#333" stroke="#666" stroke-width="1.5"/>
+          <circle cx="412" cy="160" r="4" fill="#333" stroke="#666" stroke-width="1.5"/>
+          <circle cx="548" cy="115" r="4" fill="#333" stroke="#666" stroke-width="1.5"/>
+          <circle cx="684" cy="70" r="4" fill="#333" stroke="#666" stroke-width="1.5"/>
+
+          <!-- Q1'26 highlighted dot -->
+          <circle cx="820" cy="28" r="8" fill="rgba(0,106,255,.2)" stroke="none"/>
+          <circle cx="820" cy="28" r="5" fill="#006AFF" stroke="#fff" stroke-width="2"/>
+
+          <!-- Q1'26 label -->
+          <rect x="710" y="2" width="100" height="22" rx="6" fill="rgba(0,106,255,.15)" stroke="rgba(0,106,255,.3)" stroke-width="1"/>
+          <text x="760" y="17" fill="#006AFF" font-size="11" text-anchor="middle" font-weight="700" font-family="system-ui">+5% above plan</text>
+
+          <!-- X-axis labels -->
+          <text x="140" y="368" fill="#666" font-size="12" text-anchor="middle" font-family="system-ui">Q4 '24</text>
+          <text x="276" y="368" fill="#666" font-size="12" text-anchor="middle" font-family="system-ui">Q1 '25</text>
+          <text x="412" y="368" fill="#666" font-size="12" text-anchor="middle" font-family="system-ui">Q2 '25</text>
+          <text x="548" y="368" fill="#666" font-size="12" text-anchor="middle" font-family="system-ui">Q3 '25</text>
+          <text x="684" y="368" fill="#666" font-size="12" text-anchor="middle" font-family="system-ui">Q4 '25</text>
+          <text x="820" y="368" fill="#fff" font-size="12" text-anchor="middle" font-weight="700" font-family="system-ui">Q1 '26</text>
+        </svg>
+        <p style="font-size:12px;color:#555;margin-top:8px;">Combined Square Banking + Cash App Banking gross profit</p>
+      </div>
+
+      <!-- RIGHT: Metric cards -->
+      <div style="flex:1;display:flex;flex-direction:column;gap:14px;justify-content:center;" class="fade-in d3">
+        <div class="metric-card">
+          <div class="metric-number blue">$98M</div>
+          <div class="metric-label">Square Banking GP</div>
+          <div class="metric-sub">+21% YoY · +5% above AP</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number green">$913M</div>
+          <div class="metric-label">Cash App Banking GP</div>
+          <div class="metric-sub">+9% YoY</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number green">$15.5B</div>
+          <div class="metric-label">Card GPV (March)</div>
+          <div class="metric-sub">All-time high · +21% YoY</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number green">9.7M</div>
+          <div class="metric-label">Primary Banking Actives</div>
+          <div class="metric-sub">Highest month on record</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Transition text -->
+    <p class="transition-text fade-in d5">Growth is strong — but we're still early in capturing the full financial life of our customers.</p>
+
+    <!-- Footer -->
+    <div class="slide-footer">
+      <span>Block Board of Directors · Meeting 72 · Banking · Confidential</span>
+      <span style="color:#333;">1 / 3</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 2 -->
+<!-- ============================================================ -->
+<div class="slide" id="slide-2">
+  <div class="slide-inner">
+    <!-- Header -->
+    <div class="fade-in">
+      <span class="tag tag-blue">SQUARE BANKING</span>
+      <h1 class="headline" style="margin-top:14px;">The only financial account sellers need</h1>
+      <p class="subheadline">Every dollar that leaves our ecosystem is a dollar we don't monetize. We're closing the loop.</p>
+    </div>
+
+    <!-- Three columns -->
+    <div class="three-col" style="margin-top:32px;">
+      <!-- Col 1 -->
+      <div class="col-card fade-in d1">
+        <div class="icon">🚪</div>
+        <div class="col-label">Q1 — ChAD Expansion</div>
+        <div class="col-title">Get sellers in the door</div>
+        <div style="margin-top:8px;">
+          <div class="stat-row">
+            <span class="stat-big">61%</span>
+            <span class="stat-text">of new payments customers<br/>reached</span>
+          </div>
+          <div class="stat-muted" style="margin-top:4px;">was 42% in Dec</div>
+        </div>
+        <div style="margin-top:6px;">
+          <div class="stat-row">
+            <span class="stat-big">52%</span>
+            <span class="stat-text">more likely to<br/>activate checking</span>
+          </div>
+        </div>
+        <div class="stat-muted" style="margin-top:8px;">0% impact on payment sign-up rates</div>
+      </div>
+
+      <!-- Col 2 (emphasized) -->
+      <div class="col-card fade-in d2" style="border-left-width:5px;background:#151518;">
+        <div class="icon">💳</div>
+        <div class="col-label">Q1→Q2 — Credit Card + Pay Anyone</div>
+        <div class="col-title">Every dollar flows through Square</div>
+        <div style="margin-top:8px;">
+          <div class="stat-row">
+            <span class="stat-big">50K+</span>
+            <span class="stat-text">active cards</span>
+          </div>
+        </div>
+        <div style="margin-top:4px;">
+          <div class="stat-row">
+            <span class="stat-big">$300M</span>
+            <span class="stat-text">extended credit</span>
+          </div>
+        </div>
+        <div style="margin-top:4px;">
+          <div class="stat-row">
+            <span class="stat-big" style="color:#006AFF;">$1B</span>
+            <span class="stat-text">annualized spend<br/>target (Q2)</span>
+          </div>
+        </div>
+        <div class="callout-box">
+          <strong>Pay Anyone:</strong> sellers pay any vendor via Credit Card. Square delivers via ACH or check. Every outflow becomes monetizable.
+        </div>
+      </div>
+
+      <!-- Col 3 -->
+      <div class="col-card fade-in d3">
+        <div class="icon">🏦</div>
+        <div class="col-label">Q2 — High Yield Savings</div>
+        <div class="col-title">Fund it with deposits</div>
+        <div style="margin-top:8px;">
+          <div class="stat-row">
+            <span class="stat-big">3.5–3.75%</span>
+            <span class="stat-text">APY at launch</span>
+          </div>
+        </div>
+        <div style="margin-top:6px;">
+          <div class="stat-row">
+            <span class="stat-big">&gt;$1B</span>
+            <span class="stat-text">core deposits target</span>
+          </div>
+        </div>
+        <div class="stat-muted" style="margin-top:12px;line-height:1.5;">Deposits fund lending → better credit → more card usage</div>
+      </div>
+    </div>
+
+    <!-- Flywheel -->
+    <div class="flywheel-wrap fade-in d4" style="margin-top:20px;">
+      <svg viewBox="0 0 900 100" style="width:820px;height:92px;" xmlns="http://www.w3.org/2000/svg">
+        <!-- Nodes -->
+        <!-- ChAD -->
+        <rect x="10" y="28" width="110" height="44" rx="22" fill="none" stroke="#444" stroke-width="1.5"/>
+        <text x="65" y="55" fill="#ccc" font-size="12" text-anchor="middle" font-weight="600" font-family="system-ui">ChAD</text>
+        <!-- Arrow 1 -->
+        <line x1="124" y1="50" x2="158" y2="50" stroke="#444" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <!-- Credit Card (emphasized) -->
+        <rect x="162" y="24" width="130" height="52" rx="26" fill="rgba(0,106,255,.15)" stroke="#006AFF" stroke-width="2"/>
+        <text x="227" y="55" fill="#006AFF" font-size="12" text-anchor="middle" font-weight="700" font-family="system-ui">Credit Card</text>
+        <!-- Arrow 2 -->
+        <line x1="296" y1="50" x2="330" y2="50" stroke="#444" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <!-- Pay Anyone (emphasized) -->
+        <rect x="334" y="24" width="130" height="52" rx="26" fill="rgba(0,106,255,.15)" stroke="#006AFF" stroke-width="2"/>
+        <text x="399" y="55" fill="#006AFF" font-size="12" text-anchor="middle" font-weight="700" font-family="system-ui">Pay Anyone</text>
+        <!-- Arrow 3 -->
+        <line x1="468" y1="50" x2="502" y2="50" stroke="#444" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <!-- HYS -->
+        <rect x="506" y="28" width="110" height="44" rx="22" fill="none" stroke="#444" stroke-width="1.5"/>
+        <text x="561" y="55" fill="#ccc" font-size="12" text-anchor="middle" font-weight="600" font-family="system-ui">HYS</text>
+        <!-- Arrow 4 -->
+        <line x1="620" y1="50" x2="654" y2="50" stroke="#444" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <!-- Lending -->
+        <rect x="658" y="28" width="110" height="44" rx="22" fill="none" stroke="#444" stroke-width="1.5"/>
+        <text x="713" y="55" fill="#ccc" font-size="12" text-anchor="middle" font-weight="600" font-family="system-ui">Lending</text>
+        <!-- Arrow 5 (loop back) -->
+        <path d="M772,50 Q810,50 810,20 Q810,-10 450,-10 Q170,-10 170,20 L170,22" fill="none" stroke="#333" stroke-width="1.2" stroke-dasharray="5,4" marker-end="url(#arrowhead2)"/>
+
+        <defs>
+          <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#666"/>
+          </marker>
+          <marker id="arrowhead2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#444"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+
+    <!-- Footer -->
+    <div class="slide-footer">
+      <span>Block Board of Directors · Meeting 72 · Banking · Confidential</span>
+      <span style="color:#333;">2 / 3</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 3 -->
+<!-- ============================================================ -->
+<div class="slide" id="slide-3">
+  <div class="slide-inner">
+    <!-- Header -->
+    <div class="fade-in">
+      <span class="tag tag-green">CASH APP BANKING</span>
+      <h1 class="headline" style="margin-top:14px;">Becoming the account people live in</h1>
+      <p class="subheadline">Layers of stickiness competitors can't replicate.</p>
+    </div>
+
+    <!-- Main content -->
+    <div style="display:flex;gap:40px;flex:1;margin-top:36px;min-height:0;">
+
+      <!-- LEFT: Layer stack -->
+      <div style="flex:0 0 57%;display:flex;flex-direction:column;justify-content:center;padding-left:56px;" class="fade-in d2">
+        <div class="layer-stack">
+          <!-- Bottom layer (widest) -->
+          <div class="layer-bar" style="width:100%;background:linear-gradient(90deg,rgba(0,214,50,.18),rgba(0,214,50,.04));border:1px solid rgba(0,214,50,.25);">
+            <span class="layer-timing">Q1</span>
+            <span class="layer-name">Cash App Card</span>
+            <span class="layer-stat">All-time high <strong style="color:#00D632;">$15.5B</strong> GPV</span>
+          </div>
+          <!-- Layer 2 -->
+          <div class="layer-bar" style="width:92%;background:#151515;border:1px solid #2a2a2a;">
+            <span class="layer-timing">Q1</span>
+            <span class="layer-name">Digital Wallets</span>
+            <span class="layer-stat">62.3% provisioned · 24% of GPV</span>
+          </div>
+          <!-- Layer 3 -->
+          <div class="layer-bar" style="width:84%;background:#151515;border:1px solid #2a2a2a;">
+            <span class="layer-timing">Q1</span>
+            <span class="layer-name">Debit Flex</span>
+            <span class="layer-stat">50K customers · debit↔credit on one card</span>
+          </div>
+          <!-- Layer 4 -->
+          <div class="layer-bar" style="width:76%;background:#151515;border:1px solid #2a2a2a;">
+            <span class="layer-timing">Q2</span>
+            <span class="layer-name">Cash App Tags</span>
+            <span class="layer-stat">NFC tap-to-pay · May 21 launch</span>
+          </div>
+          <!-- Layer 5 -->
+          <div class="layer-bar" style="width:68%;background:#151515;border:1px solid #2a2a2a;">
+            <span class="layer-timing">Q2</span>
+            <span class="layer-name">Phone Plans</span>
+            <span class="layer-stat">AT&T $40/mo · ~$250M GP / 3yr</span>
+          </div>
+          <!-- Top layer -->
+          <div class="layer-bar" style="width:60%;background:rgba(0,214,50,.06);border:2px solid rgba(0,214,50,.35);">
+            <span class="layer-timing" style="color:#00D632;">★</span>
+            <span class="layer-name" style="color:#00D632;">Green Membership</span>
+            <span class="layer-stat" style="color:#00D632;">The connective tissue</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Metric cards -->
+      <div style="flex:1;display:flex;flex-direction:column;gap:14px;justify-content:center;" class="fade-in d3">
+        <div class="metric-card">
+          <div class="metric-number green">861K</div>
+          <div class="metric-label">New Card Actives (March)</div>
+          <div class="metric-sub">+17% YoY</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number green">$18M</div>
+          <div class="metric-label">Transfers GP above plan</div>
+          <div class="metric-sub">+12% YoY growth</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number green">10M+</div>
+          <div class="metric-label">Apex accounts migrated</div>
+          <div class="metric-sub">4M+ active</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number green">~$250M</div>
+          <div class="metric-label">Phone Plans GP (3-year)</div>
+          <div class="metric-sub">New business line</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom callout -->
+    <div class="bottom-callout fade-in d5" style="margin-top:20px;">
+      <strong>Q2 spotlight: Cash App Tags</strong> — first NFC-only payment device. ~20K units May 21. New acquisition vector for teens. Strong viral signals.
+    </div>
+
+    <!-- Footer -->
+    <div class="slide-footer">
+      <span>Block Board of Directors · Meeting 72 · Banking · Confidential</span>
+      <span style="color:#333;">3 / 3</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /slides-wrapper -->
+
+<script>
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  const slides = document.querySelectorAll('.slide');
+  const scrollY = window.scrollY;
+  let current = 0;
+  slides.forEach((s, i) => {
+    if (s.getBoundingClientRect().top + window.scrollY <= scrollY + window.innerHeight / 2) current = i;
+  });
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+    e.preventDefault();
+    const next = Math.min(current + 1, slides.length - 1);
+    slides[next].scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+    e.preventDefault();
+    const prev = Math.max(current - 1, 0);
+    slides[prev].scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+});
+
+// Scroll-triggered fade-in
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
