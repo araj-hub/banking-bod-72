@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Square Banking — The Loop (Jack Style)</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #000;
+    font-family: system-ui, -apple-system, 'SF Pro Display', 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    color: #fff;
+  }
+
+  .slides-wrapper {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 48px 0; gap: 32px;
+  }
+
+  .slide {
+    width: 1920px; height: 1080px;
+    background: #000; position: relative;
+    transform-origin: top center;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 8px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,.04);
+  }
+
+  @media (max-width: 1960px) {
+    .slide {
+      transform: scale(calc((100vw - 40px) / 1920));
+      height: calc(1080px * ((100vw - 40px) / 1920));
+    }
+  }
+
+  /* ===== JACK STYLE: Maximum whitespace, minimum words ===== */
+
+  .center-text {
+    text-align: center;
+    max-width: 1200px;
+    padding: 0 80px;
+  }
+
+  .big-number {
+    font-size: 180px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: #fff;
+  }
+
+  .big-word {
+    font-size: 96px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: #fff;
+  }
+
+  .medium-text {
+    font-size: 42px;
+    font-weight: 500;
+    color: #666;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+  }
+
+  .small-text {
+    font-size: 28px;
+    font-weight: 500;
+    color: #444;
+    line-height: 1.5;
+  }
+
+  .blue { color: #006AFF; }
+  .green { color: #00D632; }
+  .dim { color: #333; }
+  .white { color: #fff; }
+
+  /* ===== THE LOOP DIAGRAM (simplified) ===== */
+  .loop-wrap {
+    position: relative;
+    width: 700px; height: 700px;
+  }
+
+  .loop-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  .loop-center-label {
+    font-size: 18px; font-weight: 800;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(0,106,255,0.6);
+  }
+
+  .loop-center-big {
+    font-size: 28px; font-weight: 800;
+    color: #fff; margin-top: 4px;
+    letter-spacing: -0.01em;
+  }
+
+  .loop-node {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  .loop-node-word {
+    font-size: 22px; font-weight: 700;
+    color: #fff; letter-spacing: 0.02em;
+  }
+
+  .loop-node-sub {
+    font-size: 13px; color: #555;
+    margin-top: 4px;
+  }
+
+  @keyframes flowDash {
+    to { stroke-dashoffset: -30; }
+  }
+
+  .flow-line {
+    fill: none; stroke: #222; stroke-width: 1.5;
+    stroke-dasharray: 8, 6;
+    animation: flowDash 2s linear infinite;
+  }
+
+  .flow-line-blue {
+    fill: none; stroke: rgba(0,106,255,0.25); stroke-width: 2;
+    stroke-dasharray: 8, 6;
+    animation: flowDash 2s linear infinite;
+  }
+
+  /* Nav */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: center; gap: 6px;
+    padding: 14px 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,.95) 60%, transparent);
+    pointer-events: none;
+  }
+  .nav a {
+    pointer-events: all;
+    padding: 5px 14px; border-radius: 100px;
+    font-size: 12px; font-weight: 600;
+    color: #555; text-decoration: none;
+    border: 1px solid #222; background: rgba(17,17,17,.9);
+    transition: all .2s;
+  }
+  .nav a:hover { color: #fff; border-color: #444; }
+
+  /* Footer on each slide */
+  .slide-footer {
+    position: absolute; bottom: 28px; left: 80px; right: 80px;
+    font-size: 11px; color: #222;
+    display: flex; justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="#s1">1</a>
+  <a href="#s2">2</a>
+  <a href="#s3">3</a>
+  <a href="#s4">4</a>
+  <a href="#s5">5</a>
+  <a href="#s6">6</a>
+  <a href="#s7">7</a>
+  <a href="#s8">8</a>
+  <a href="#s9">9</a>
+</nav>
+
+<div class="slides-wrapper">
+
+<!-- ====== SLIDE 1: The number ====== -->
+<div class="slide" id="s1">
+  <div class="center-text">
+    <div class="big-number">~$100M</div>
+    <div class="medium-text" style="margin-top:24px;">gross profit · Q1 2026</div>
+    <div class="small-text" style="margin-top:16px;">+21% YoY · +5% vs. plan</div>
+  </div>
+  <div class="slide-footer">
+    <span>Square Banking</span><span>1</span>
+  </div>
+</div>
+
+<!-- ====== SLIDE 2: One line ====== -->
+<div class="slide" id="s2">
+  <div class="center-text">
+    <div class="big-word">Strongest quarter<br/>in Square Banking<br/>history.</div>
+  </div>
+  <div class="slide-footer">
+    <span>Square Banking</span><span>2</span>
+  </div>
+</div>
+
+<!-- ====== SLIDE 3: The question ====== -->
+<div class="slide" id="s3">
+  <div class="center-text">
+    <div class="medium-text">The number isn't the story.</div>
+    <div class="big-word" style="margin-top:40px;">What's behind it is.</div>
+  </div>
+  <div class="slide-footer">
+    <span>Square Banking</span><span>3</span>
+  </div>
+</div>
+
+<!-- ====== SLIDE 4: The system — words only ====== -->
+<div class="slide" id="s4">
+  <div class="center-text">
+    <div class="small-text" style="margin-bottom:48px;">We're building one system.</div>
+    <div style="font-size:64px;font-weight:800;line-height:1.6;letter-spacing:-0.02em;">
+      <span class="dim">Sellers get paid into</span> <span class="blue">Square Balance</span><br/>
+      <span class="dim">They pay bills from</span> <span class="white">Bill Pay</span><br/>
+      <span class="dim">They fund it</span> <span class="white">their way</span><br/>
+      <span class="dim">It repays itself from</span> <span class="blue">daily sales</span>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>Square Banking</span><span>4</span>
+  </div>
+</div>
+
+<!-- ====== SLIDE 5: The loop diagram ====== -->
+<div class="slide" id="s5">
+  <div class="loop-wrap">
+    <svg style="position:absolute;top:0;left:0;width:100%;height:100%;" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg">
+      <!-- Circular flow -->
+      <path class="flow-line-blue" d="M 350,80 Q 580,80 600,350"/>
+      <path class="flow-line" d="M 600,350 Q 580,560 420,620"/>
+      <path class="flow-line" d="M 280,620 Q 120,560 100,350"/>
+      <path class="flow-line-blue" d="M 100,350 Q 120,140 350,80"/>
+    </svg>
+
+    <!-- Center -->
+    <div class="loop-center">
+      <div class="loop-center-label">Square Balance</div>
+      <div class="loop-center-big">Every dollar<br/>flows through here</div>
+    </div>
+
+    <!-- Top -->
+    <div class="loop-node" style="top:6%;left:50%;">
+      <div class="loop-node-word" style="color:#006AFF;">Get Paid</div>
+      <div class="loop-node-sub">Card payments settle instantly</div>
+    </div>
+
+    <!-- Right -->
+    <div class="loop-node" style="top:50%;left:92%;">
+      <div class="loop-node-word">Bill Pay</div>
+      <div class="loop-node-sub">All vendor bills, one place</div>
+    </div>
+
+    <!-- Bottom -->
+    <div class="loop-node" style="top:92%;left:50%;">
+      <div class="loop-node-word">Pay Your Way</div>
+      <div class="loop-node-sub">Balance · Credit Card · ACH</div>
+    </div>
+
+    <!-- Left -->
+    <div class="loop-node" style="top:50%;left:8%;">
+      <div class="loop-node-word" style="color:#006AFF;">Auto-Repay</div>
+      <div class="loop-node-sub">From daily sales</div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>Square Banking</span><span>5</span>
+  </div>
+</div>
+
+<!-- ====== SLIDE 6: The wedge ====== -->
+<div class="slide" id="s6">
+  <div class="center-text">
+    <div class="small-text" style="margin-bottom:40px;">The wedge</div>
+    <div style="font-size:72px;font-weight:800;line-height:1.4;letter-spacing:-0.02em;">
+      Bill Pay gets them spending<br/>from their balance.
+    </div>
+    <div style="font-size:72px;font-weight:800;line-height:1.4;letter-spacing:-0.02em;margin-top:20px;">
+      Credit Card gives them<br/><span class="blue">60 days of float.</span>
+    </div>
+    <div style="font-size:72px;font-weight:800;line-height:1.4;letter-spacing:-0.02em;margin-top:20px;">
+      Smart Repay pays it back<br/><span class="blue">from daily sales.</span>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>Square Banking</span><span>6</span>
+  </div>
+</div>
+
+<!-- ====== SLIDE 7: Q1 → Q2 ====== -->
+<div class="slide" id="s7">
+  <div class="center-text" style="max-width:1600px;">
+    <div style="display:flex;gap:120px;align-items:flex-start;">
+      <!-- Q1 -->
+      <div style="flex:1;text-align:left;">
+        <div style="font-size:18px;font-weight:700;color:#444;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:32px;">Q1 Built</div>
+        <div style="font-size:36px;font-weight:700;color:#555;line-height:2;">
+          Checking as Default <span style="color:#333;">— 61%</span><br/>
+          Bill Pay <span style="color:#333;">— own entry point</span><br/>
+          Credit Card <span style="color:#333;">— 50K cards</span>
+        </div>
+      </div>
+      <!-- Arrow -->
+      <div style="font-size:48px;color:#222;padding-top:80px;">→</div>
+      <!-- Q2 -->
+      <div style="flex:1;text-align:left;">
+        <div style="font-size:18px;font-weight:700;color:#006AFF;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:32px;">Q2 Connects</div>
+        <div style="font-size:36px;font-weight:700;color:#fff;line-height:2;">
+          Pay Anyone <span style="color:#006AFF;">— any vendor, any method</span><br/>
+          Smart Repay <span style="color:#006AFF;">— first ever for CC</span><br/>
+          High Yield Savings <span style="color:#006AFF;">— 3.75% APY</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>Square Banking</span><span>7</span>
+  </div>
+</div>
+
+<!-- ====== SLIDE 8: The horizon ====== -->
+<div class="slide" id="s8">
+  <div class="center-text">
+    <div style="display:flex;align-items:baseline;justify-content:center;gap:60px;">
+      <div style="text-align:center;">
+        <div style="font-size:36px;font-weight:700;color:#333;">Tools</div>
+        <div style="font-size:14px;color:#222;margin-top:8px;">2025</div>
+      </div>
+      <div style="font-size:36px;color:#222;">→</div>
+      <div style="text-align:center;">
+        <div style="font-size:48px;font-weight:800;color:#fff;">System</div>
+        <div style="font-size:14px;color:#006AFF;margin-top:8px;">NOW</div>
+      </div>
+      <div style="font-size:36px;color:#222;">→</div>
+      <div style="text-align:center;">
+        <div style="font-size:72px;font-weight:800;color:#006AFF;">Managerbot</div>
+        <div style="font-size:14px;color:#444;margin-top:8px;">2027–28</div>
+      </div>
+    </div>
+    <div class="small-text" style="margin-top:64px;max-width:800px;margin-left:auto;margin-right:auto;">
+      The seller stops being their own CFO.<br/>
+      Square manages it for them.
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>Square Banking</span><span>8</span>
+  </div>
+</div>
+
+<!-- ====== SLIDE 9: The punchline ====== -->
+<div class="slide" id="s9">
+  <div class="center-text">
+    <div class="big-number" style="color:#006AFF;">$1B</div>
+    <div class="medium-text" style="margin-top:24px;">gross profit by 2028</div>
+  </div>
+  <div class="slide-footer">
+    <span>Square Banking</span><span>9</span>
+  </div>
+</div>
+
+</div>
+
+<script>
+document.addEventListener('keydown', (e) => {
+  const slides = document.querySelectorAll('.slide');
+  const scrollY = window.scrollY;
+  let current = 0;
+  slides.forEach((s, i) => {
+    if (s.getBoundingClientRect().top + window.scrollY <= scrollY + window.innerHeight / 2) current = i;
+  });
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+    e.preventDefault();
+    slides[Math.min(current + 1, slides.length - 1)].scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+    e.preventDefault();
+    slides[Math.max(current - 1, 0)].scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+});
+</script>
+
+</body>
+</html>
