@@ -175,11 +175,12 @@
 
 <nav class="nav">
   <a href="#s1">1 · Result</a>
-  <a href="#s2">2 · The Problem</a>
-  <a href="#s3">3 · The System</a>
-  <a href="#s4">4 · Q1 Shipped</a>
-  <a href="#s5">5 · Q2 Coming</a>
-  <a href="#s6">6 · Vision</a>
+  <a href="#s2">2 · The Leak</a>
+  <a href="#s2b">3 · Why</a>
+  <a href="#s3">4 · The System</a>
+  <a href="#s4">5 · Q1 Shipped</a>
+  <a href="#s5">6 · Q2 Coming</a>
+  <a href="#s6">7 · Vision</a>
 </nav>
 
 <div class="slides-wrapper">
@@ -197,49 +198,94 @@
 </div>
 
 <!-- ====================================================== -->
-<!-- SLIDE 2: The seller's reality today                     -->
+<!-- SLIDE 2: The opportunity — money is leaving             -->
 <!-- ====================================================== -->
 <div class="slide" id="s2">
   <div style="display:flex;width:100%;height:100%;padding:80px 100px;">
 
-    <!-- Left: the pain -->
-    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding-right:80px;">
-      <div style="font-size:16px;font-weight:700;color:#333;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:36px;">A seller's Monday morning</div>
-      <div style="font-size:48px;font-weight:800;line-height:1.4;letter-spacing:-0.02em;">
-        $12K in Square from the weekend.<br/>
-        <span style="color:#555;">$8K owed to her food distributor.</span><br/>
-        <span style="color:#444;">$2K to her linen service.</span><br/>
-        <span style="color:#333;">$400 to her software vendor.</span>
+    <!-- Left: the number -->
+    <div style="flex:0 0 50%;display:flex;flex-direction:column;justify-content:center;padding-right:80px;">
+      <div style="font-size:16px;font-weight:700;color:#333;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:24px;">The opportunity</div>
+      <div style="font-size:120px;font-weight:800;letter-spacing:-0.04em;line-height:1;color:#fff;">$14.7B</div>
+      <div style="font-size:32px;font-weight:600;color:#555;margin-top:16px;line-height:1.4;">flows out of Square every quarter.</div>
+      <div style="margin-top:48px;">
+        <div style="font-size:56px;font-weight:800;letter-spacing:-0.03em;color:#006AFF;line-height:1;">92%</div>
+        <div style="font-size:24px;font-weight:600;color:#444;margin-top:8px;line-height:1.4;">leaves to an external bank.</div>
       </div>
-    </div>
-
-    <!-- Right: the chaos -->
-    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;">
-      <div style="font-size:16px;font-weight:700;color:#333;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:36px;">What she does today</div>
-
-      <div style="margin-bottom:32px;">
-        <div style="font-size:28px;font-weight:700;color:#555;line-height:1.4;">Logs into her bank</div>
-        <div style="font-size:18px;color:#333;margin-top:4px;">Writes a check. Waits 3 days to clear.</div>
-      </div>
-
-      <div style="margin-bottom:32px;">
-        <div style="font-size:28px;font-weight:700;color:#555;line-height:1.4;">Pulls out a personal credit card</div>
-        <div style="font-size:18px;color:#333;margin-top:4px;">Pays the linen service. Mixes business and personal.</div>
-      </div>
-
-      <div style="margin-bottom:32px;">
-        <div style="font-size:28px;font-weight:700;color:#555;line-height:1.4;">Forgets the software vendor</div>
-        <div style="font-size:18px;color:#333;margin-top:4px;">Auto-pay bounces. Late fee.</div>
-      </div>
-
-      <div style="margin-top:24px;padding-top:24px;border-top:1px solid #1a1a1a;">
-        <div style="font-size:24px;font-weight:700;color:#006AFF;line-height:1.4;">
-          Three bills. Three tools. Three problems.<br/>
-          <span style="color:#444;">Her money started at Square — then it scattered.</span>
+      <div style="margin-top:40px;padding-top:32px;border-top:1px solid #1a1a1a;">
+        <div style="font-size:22px;font-weight:600;color:#555;line-height:1.5;">
+          $12.6B via Standard ACH — at <span style="color:#ff4444;">negative gross profit.</span><br/>
+          <span style="color:#444;">We're paying to lose the money.</span>
         </div>
       </div>
     </div>
 
+    <!-- Right: the sankey story -->
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+      <!-- Simplified sankey visualization -->
+      <svg viewBox="0 0 600 500" style="width:100%;max-width:560px;" xmlns="http://www.w3.org/2000/svg">
+        <!-- Main outflow bar -->
+        <rect x="0" y="40" width="40" height="420" rx="4" fill="#222"/>
+        <text x="20" y="30" fill="#555" font-size="11" text-anchor="middle" font-weight="700" font-family="system-ui">$14.7B</text>
+        <text x="20" y="478" fill="#333" font-size="9" text-anchor="middle" font-family="system-ui">Square</text>
+        <text x="20" y="490" fill="#333" font-size="9" text-anchor="middle" font-family="system-ui">Outflows</text>
+
+        <!-- Flow to External Bank (92%) — big gray flow -->
+        <path d="M 40,50 C 160,50 160,60 280,60 L 280,420 C 160,420 160,410 40,440 Z" fill="#1a1a1a" opacity="0.8"/>
+
+        <!-- External Bank bar -->
+        <rect x="280" y="60" width="40" height="360" rx="4" fill="#222"/>
+        <text x="300" y="50" fill="#555" font-size="11" text-anchor="middle" font-weight="700" font-family="system-ui">$13.5B</text>
+        <text x="300" y="438" fill="#333" font-size="9" text-anchor="middle" font-family="system-ui">External Bank</text>
+
+        <!-- Standard ACH — the big leak -->
+        <path d="M 320,80 C 420,80 420,100 520,100 L 520,380 C 420,380 420,360 320,380 Z" fill="rgba(255,68,68,0.08)" stroke="rgba(255,68,68,0.15)" stroke-width="1"/>
+        <text x="540" y="220" fill="#ff4444" font-size="12" font-weight="700" font-family="system-ui">Standard ACH</text>
+        <text x="540" y="238" fill="#ff4444" font-size="11" font-family="system-ui">$12.6B</text>
+        <text x="540" y="258" fill="#663333" font-size="10" font-style="italic" font-family="system-ui">−$126K GP</text>
+
+        <!-- Flow to Square Checking (small) -->
+        <path d="M 40,44 C 100,44 100,44 160,44 L 160,80 C 100,80 100,72 40,72 Z" fill="rgba(0,106,255,0.15)" stroke="rgba(0,106,255,0.3)" stroke-width="1"/>
+        <rect x="160" y="40" width="30" height="44" rx="3" fill="rgba(0,106,255,0.2)" stroke="rgba(0,106,255,0.4)" stroke-width="1"/>
+        <text x="175" y="56" fill="#006AFF" font-size="8" text-anchor="middle" font-weight="600" font-family="system-ui">Square</text>
+        <text x="175" y="68" fill="#006AFF" font-size="8" text-anchor="middle" font-weight="600" font-family="system-ui">Checking</text>
+        <text x="175" y="32" fill="#006AFF" font-size="9" text-anchor="middle" font-weight="700" font-family="system-ui">$1.2B</text>
+
+        <!-- Instant Deposit (small) -->
+        <path d="M 320,400 C 420,400 420,420 520,420 L 520,440 C 420,440 420,430 320,420 Z" fill="rgba(255,255,255,0.04)"/>
+        <text x="540" y="432" fill="#555" font-size="10" font-family="system-ui">Instant Deposit $866M</text>
+        <text x="540" y="446" fill="#00D632" font-size="10" font-weight="600" font-family="system-ui">+$15M GP</text>
+
+        <!-- Annotation arrow -->
+        <line x1="460" y1="280" x2="460" y2="300" stroke="#ff4444" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="460" y="320" fill="#ff4444" font-size="10" text-anchor="middle" font-style="italic" font-family="system-ui">biggest opportunity</text>
+        <text x="460" y="334" fill="#ff4444" font-size="10" text-anchor="middle" font-style="italic" font-family="system-ui">for monetization</text>
+      </svg>
+
+      <div style="font-size:10px;color:#222;margin-top:12px;">* Minimum bar width imposed for visibility — node not drawn to scale</div>
+    </div>
+
+  </div>
+  <div class="sf"><span>Square Banking</span><span>2</span></div>
+</div>
+
+<!-- ====================================================== -->
+<!-- SLIDE 2b: The seller's reality                          -->
+<!-- ====================================================== -->
+<div class="slide" id="s2b">
+  <div class="center-text">
+    <div style="font-size:16px;font-weight:700;color:#333;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:48px;">Why it leaves</div>
+    <div style="font-size:64px;font-weight:800;line-height:1.5;letter-spacing:-0.02em;">
+      <span class="dim">Sellers wake up worried about</span> <span class="white">paying bills</span><br/>
+      <span class="dim">not about</span> <span style="color:#333;">switching banks.</span>
+    </div>
+    <div style="margin-top:56px;font-size:32px;font-weight:600;color:#444;line-height:1.5;max-width:1000px;margin-left:auto;margin-right:auto;">
+      Three bills. Three tools. Three problems.<br/>
+      Their money starts at Square — then it scatters.
+    </div>
+    <div style="margin-top:48px;font-size:28px;font-weight:700;color:#006AFF;">
+      Give them a reason to pay from Square, and the money stays.
+    </div>
   </div>
   <div class="sf"><span>Square Banking</span><span>2</span></div>
 </div>
