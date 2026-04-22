@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Square Banking — The Loop (Jack Style)</title>
+<title>Square Banking — BOD 72 (Final)</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -12,23 +12,19 @@
     -webkit-font-smoothing: antialiased;
     color: #fff;
   }
-
   .slides-wrapper {
     display: flex; flex-direction: column; align-items: center;
     padding: 48px 0; gap: 32px;
   }
-
   .slide {
     width: 1920px; height: 1080px;
     background: #000; position: relative;
     transform-origin: top center;
-    overflow: hidden;
-    flex-shrink: 0;
+    overflow: hidden; flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
     border-radius: 8px;
     box-shadow: 0 0 0 1px rgba(255,255,255,.04);
   }
-
   @media (max-width: 1960px) {
     .slide {
       transform: scale(calc((100vw - 40px) / 1920));
@@ -36,301 +32,372 @@
     }
   }
 
-  /* ===== JACK STYLE: Maximum whitespace, minimum words ===== */
-
-  .center-text {
-    text-align: center;
-    max-width: 1200px;
-    padding: 0 80px;
-  }
-
-  .big-number {
-    font-size: 180px;
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    line-height: 1;
-    color: #fff;
-  }
-
-  .big-word {
-    font-size: 96px;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    color: #fff;
-  }
-
-  .medium-text {
-    font-size: 42px;
-    font-weight: 500;
-    color: #666;
-    line-height: 1.4;
-    letter-spacing: -0.01em;
-  }
-
-  .small-text {
-    font-size: 28px;
-    font-weight: 500;
-    color: #444;
-    line-height: 1.5;
-  }
-
+  /* Typography */
+  .center-text { text-align: center; max-width: 1400px; padding: 0 80px; }
+  .big-number { font-size: 180px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; }
+  .big-word { font-size: 80px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; }
+  .medium-text { font-size: 42px; font-weight: 500; color: #666; line-height: 1.4; }
+  .small-text { font-size: 28px; font-weight: 500; color: #444; line-height: 1.5; }
   .blue { color: #006AFF; }
   .green { color: #00D632; }
   .dim { color: #333; }
   .white { color: #fff; }
 
-  /* ===== THE LOOP DIAGRAM (simplified) ===== */
-  .loop-wrap {
-    position: relative;
-    width: 700px; height: 700px;
-  }
-
-  .loop-center {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-  }
-
-  .loop-center-label {
-    font-size: 18px; font-weight: 800;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    color: rgba(0,106,255,0.6);
-  }
-
-  .loop-center-big {
-    font-size: 28px; font-weight: 800;
-    color: #fff; margin-top: 4px;
-    letter-spacing: -0.01em;
-  }
-
-  .loop-node {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    text-align: center;
-  }
-
-  .loop-node-word {
-    font-size: 22px; font-weight: 700;
-    color: #fff; letter-spacing: 0.02em;
-  }
-
-  .loop-node-sub {
-    font-size: 13px; color: #555;
-    margin-top: 4px;
-  }
-
-  @keyframes flowDash {
-    to { stroke-dashoffset: -30; }
-  }
-
-  .flow-line {
-    fill: none; stroke: #222; stroke-width: 1.5;
-    stroke-dasharray: 8, 6;
-    animation: flowDash 2s linear infinite;
-  }
-
-  .flow-line-blue {
-    fill: none; stroke: rgba(0,106,255,0.25); stroke-width: 2;
-    stroke-dasharray: 8, 6;
-    animation: flowDash 2s linear infinite;
-  }
+  /* Footer */
+  .sf { position: absolute; bottom: 28px; left: 80px; right: 80px; font-size: 11px; color: #222; display: flex; justify-content: space-between; }
 
   /* Nav */
   .nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; justify-content: center; gap: 6px;
-    padding: 14px 0;
+    display: flex; justify-content: center; gap: 6px; padding: 14px 0;
     background: linear-gradient(to bottom, rgba(0,0,0,.95) 60%, transparent);
     pointer-events: none;
   }
   .nav a {
-    pointer-events: all;
-    padding: 5px 14px; border-radius: 100px;
-    font-size: 12px; font-weight: 600;
-    color: #555; text-decoration: none;
-    border: 1px solid #222; background: rgba(17,17,17,.9);
-    transition: all .2s;
+    pointer-events: all; padding: 5px 14px; border-radius: 100px;
+    font-size: 12px; font-weight: 600; color: #555; text-decoration: none;
+    border: 1px solid #222; background: rgba(17,17,17,.9); transition: all .2s;
   }
   .nav a:hover { color: #fff; border-color: #444; }
 
-  /* Footer on each slide */
-  .slide-footer {
-    position: absolute; bottom: 28px; left: 80px; right: 80px;
+  /* Loop diagram */
+  .loop-wrap { position: relative; width: 600px; height: 600px; }
+  .loop-center {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%); text-align: center;
+  }
+  .loop-center-label {
+    font-size: 16px; font-weight: 800; letter-spacing: 0.1em;
+    text-transform: uppercase; color: rgba(0,106,255,0.6);
+  }
+  .loop-center-big {
+    font-size: 22px; font-weight: 800; color: #fff;
+    margin-top: 4px; letter-spacing: -0.01em;
+  }
+  .loop-node {
+    position: absolute; transform: translate(-50%, -50%); text-align: center;
+  }
+  .loop-node-word { font-size: 20px; font-weight: 700; color: #fff; }
+  .loop-node-sub { font-size: 12px; color: #555; margin-top: 4px; }
+  @keyframes flowDash { to { stroke-dashoffset: -30; } }
+  .fl { fill: none; stroke-width: 1.5; stroke-dasharray: 8, 6; animation: flowDash 2s linear infinite; }
+  .fl-dim { stroke: #222; }
+  .fl-blue { stroke: rgba(0,106,255,0.25); stroke-width: 2; }
+
+  /* Q slides layout */
+  .q-layout {
+    display: flex; width: 100%; height: 100%;
+    padding: 80px;
+  }
+  .q-left {
+    flex: 0 0 45%; display: flex; flex-direction: column;
+    justify-content: center; padding-right: 60px;
+  }
+  .q-right {
+    flex: 1; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; gap: 20px;
+  }
+  .q-header {
+    font-size: 14px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; margin-bottom: 40px;
+  }
+  .q-item {
+    margin-bottom: 36px;
+  }
+  .q-item-title {
+    font-size: 32px; font-weight: 700; color: #fff; line-height: 1.3;
+  }
+  .q-item-stat {
+    font-size: 18px; color: #555; margin-top: 6px; line-height: 1.4;
+  }
+  .q-item-stat strong { color: #888; font-weight: 600; }
+
+  /* Product shot placeholders */
+  .product-shot {
+    background: #0a0a0a;
+    border: 1px solid #1a1a1a;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+  .product-shot-label {
+    font-size: 14px; font-weight: 700; color: #333;
+    letter-spacing: 0.04em;
+  }
+  .product-shot-sub {
     font-size: 11px; color: #222;
-    display: flex; justify-content: space-between;
+  }
+  .replace-tag {
+    position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+    font-size: 10px; color: #CC8800; font-style: italic;
+    padding: 3px 10px; background: rgba(204,136,0,.06);
+    border: 1px dashed rgba(204,136,0,.2); border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  /* Browser frame for product shots */
+  .browser-mock {
+    background: #111; border-radius: 10px; border: 1px solid #222;
+    overflow: hidden; width: 100%;
+  }
+  .browser-mock-bar {
+    height: 24px; background: #1a1a1a; display: flex;
+    align-items: center; padding: 0 10px; gap: 5px;
+    border-bottom: 1px solid #222;
+  }
+  .bmd { width: 7px; height: 7px; border-radius: 50%; }
+  .browser-mock-content {
+    padding: 20px; min-height: 180px;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 8px;
+  }
+
+  /* Phone frame for product shots */
+  .phone-mock {
+    width: 180px; border: 2px solid #222; border-radius: 28px;
+    background: #000; padding: 8px 6px; overflow: hidden;
+  }
+  .phone-mock-notch {
+    width: 60px; height: 18px; background: #000; border-radius: 0 0 12px 12px;
+    margin: 0 auto; border: 1.5px solid #222; border-top: none;
+  }
+  .phone-mock-screen {
+    background: #0a0a0a; border-radius: 18px; margin-top: 4px;
+    min-height: 280px; display: flex; align-items: center;
+    justify-content: center; flex-direction: column; gap: 8px;
+    padding: 16px;
   }
 </style>
 </head>
 <body>
 
 <nav class="nav">
-  <a href="#s1">1</a>
-  <a href="#s2">2</a>
-  <a href="#s3">3</a>
-  <a href="#s4">4</a>
-  <a href="#s5">5</a>
-  <a href="#s6">6</a>
-  <a href="#s7">7</a>
-  <a href="#s8">8</a>
-  <a href="#s9">9</a>
+  <a href="#s1">1 · Result</a>
+  <a href="#s2">2 · System</a>
+  <a href="#s3">3 · Q1 Shipped</a>
+  <a href="#s4">4 · Q2 Coming</a>
+  <a href="#s5">5 · Vision</a>
 </nav>
 
 <div class="slides-wrapper">
 
-<!-- ====== SLIDE 1: The number ====== -->
+<!-- ====================================================== -->
+<!-- SLIDE 1: The number                                     -->
+<!-- ====================================================== -->
 <div class="slide" id="s1">
   <div class="center-text">
     <div class="big-number">~$100M</div>
     <div class="medium-text" style="margin-top:24px;">gross profit · Q1 2026</div>
-    <div class="small-text" style="margin-top:16px;">+21% YoY · +5% vs. plan</div>
+    <div class="small-text" style="margin-top:16px;">+21% YoY · +5% vs. plan · Strongest quarter ever</div>
   </div>
-  <div class="slide-footer">
-    <span>Square Banking</span><span>1</span>
-  </div>
+  <div class="sf"><span>Square Banking</span><span>1</span></div>
 </div>
 
-<!-- ====== SLIDE 2: One line ====== -->
+<!-- ====================================================== -->
+<!-- SLIDE 2: The system                                     -->
+<!-- ====================================================== -->
 <div class="slide" id="s2">
-  <div class="center-text">
-    <div class="big-word">Strongest quarter<br/>in Square Banking<br/>history.</div>
+  <div style="display:flex;align-items:center;gap:80px;padding:0 80px;">
+
+    <!-- Left: the loop -->
+    <div class="loop-wrap" style="flex-shrink:0;">
+      <svg style="position:absolute;top:0;left:0;width:100%;height:100%;" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+        <path class="fl fl-blue" d="M 300,60 Q 520,60 530,300"/>
+        <path class="fl fl-dim" d="M 530,300 Q 520,480 360,540"/>
+        <path class="fl fl-dim" d="M 240,540 Q 80,480 70,300"/>
+        <path class="fl fl-blue" d="M 70,300 Q 80,120 300,60"/>
+      </svg>
+      <div class="loop-center">
+        <div class="loop-center-label">Square Balance & Savings</div>
+        <div class="loop-center-big">Where money lives,<br/>moves, and grows</div>
+      </div>
+      <div class="loop-node" style="top:4%;left:50%;">
+        <div class="loop-node-word" style="color:#006AFF;">Get Paid</div>
+        <div class="loop-node-sub">Card payments settle instantly</div>
+      </div>
+      <div class="loop-node" style="top:50%;left:94%;">
+        <div class="loop-node-word">Bill Pay</div>
+        <div class="loop-node-sub">All vendor bills, one place</div>
+      </div>
+      <div class="loop-node" style="top:94%;left:50%;">
+        <div class="loop-node-word">Pay Your Way</div>
+        <div class="loop-node-sub">Balance · Credit Card · ACH</div>
+      </div>
+      <div class="loop-node" style="top:50%;left:6%;">
+        <div class="loop-node-word" style="color:#006AFF;">Auto-Repay</div>
+        <div class="loop-node-sub">From daily sales</div>
+      </div>
+    </div>
+
+    <!-- Right: the narrative -->
+    <div style="flex:1;">
+      <div style="font-size:52px;font-weight:800;line-height:1.5;letter-spacing:-0.02em;">
+        <span class="dim">Sellers get paid into</span> <span class="blue">Square Balance</span><br/>
+        <span class="dim">They pay bills from</span> <span class="white">Bill Pay</span><br/>
+        <span class="dim">They fund it</span> <span class="white">their way</span><br/>
+        <span class="dim">It repays itself from</span> <span class="blue">daily sales</span>
+      </div>
+      <div style="margin-top:40px;font-size:24px;color:#444;line-height:1.5;">
+        Every dollar earns, spends, and grows — without ever leaving Square.
+      </div>
+    </div>
+
   </div>
-  <div class="slide-footer">
-    <span>Square Banking</span><span>2</span>
-  </div>
+  <div class="sf"><span>Square Banking</span><span>2</span></div>
 </div>
 
-<!-- ====== SLIDE 3: The question ====== -->
+<!-- ====================================================== -->
+<!-- SLIDE 3: Q1 — What we shipped + product shots           -->
+<!-- ====================================================== -->
 <div class="slide" id="s3">
-  <div class="center-text">
-    <div class="medium-text">The number isn't the story.</div>
-    <div class="big-word" style="margin-top:40px;">What's behind it is.</div>
+  <div class="q-layout">
+
+    <!-- Left: what shipped -->
+    <div class="q-left">
+      <div class="q-header" style="color:#444;">Q1 2026 — Shipped ✓</div>
+
+      <div class="q-item">
+        <div class="q-item-title">Checking as Default</div>
+        <div class="q-item-stat"><strong>61%</strong> of new sellers see it (was 42%) · <strong>52%</strong> more likely to activate</div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-item-title">Bill Pay — Own Entry Point</div>
+        <div class="q-item-stat">Abstracted from Checking · Open to all sellers · On track to <strong>$50M GPV/mo</strong></div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-item-title">Credit Card — Scaled</div>
+        <div class="q-item-stat"><strong>50K+</strong> active cards · <strong>$300M</strong> extended credit · 1.5% cash back</div>
+      </div>
+    </div>
+
+    <!-- Right: product shots -->
+    <div class="q-right">
+      <!-- Shot 1: ChAD onboarding -->
+      <div class="browser-mock" style="max-width:480px;">
+        <div class="browser-mock-bar">
+          <div class="bmd" style="background:#ff5f57;"></div>
+          <div class="bmd" style="background:#ffbd2e;"></div>
+          <div class="bmd" style="background:#28c840;"></div>
+          <div style="flex:1;text-align:center;font-size:9px;color:#444;">squareup.com/dashboard</div>
+        </div>
+        <div class="browser-mock-content" style="min-height:160px;">
+          <div class="product-shot-label">Checking as Default</div>
+          <div class="product-shot-sub">Onboarding flow — 61% of new sellers</div>
+          <div class="replace-tag">[REPLACE: ChAD onboarding screenshot]</div>
+        </div>
+      </div>
+
+      <!-- Shot 2: Bill Pay + Credit Card -->
+      <div style="display:flex;gap:16px;width:100%;max-width:480px;">
+        <div class="browser-mock" style="flex:1;">
+          <div class="browser-mock-bar">
+            <div class="bmd" style="background:#ff5f57;"></div>
+            <div class="bmd" style="background:#ffbd2e;"></div>
+            <div class="bmd" style="background:#28c840;"></div>
+          </div>
+          <div class="browser-mock-content" style="min-height:120px;">
+            <div class="product-shot-label" style="font-size:12px;">Bill Pay</div>
+            <div class="replace-tag">[REPLACE: Bill Pay UI]</div>
+          </div>
+        </div>
+        <div class="browser-mock" style="flex:1;">
+          <div class="browser-mock-bar">
+            <div class="bmd" style="background:#ff5f57;"></div>
+            <div class="bmd" style="background:#ffbd2e;"></div>
+            <div class="bmd" style="background:#28c840;"></div>
+          </div>
+          <div class="browser-mock-content" style="min-height:120px;">
+            <div class="product-shot-label" style="font-size:12px;">Credit Card</div>
+            <div class="replace-tag">[REPLACE: CC dashboard]</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
-  <div class="slide-footer">
-    <span>Square Banking</span><span>3</span>
-  </div>
+  <div class="sf"><span>Square Banking</span><span>3</span></div>
 </div>
 
-<!-- ====== SLIDE 4: The system — words only ====== -->
+<!-- ====================================================== -->
+<!-- SLIDE 4: Q2 — What's coming + product shots             -->
+<!-- ====================================================== -->
 <div class="slide" id="s4">
-  <div class="center-text">
-    <div class="small-text" style="margin-bottom:48px;">We're building one system.</div>
-    <div style="font-size:64px;font-weight:800;line-height:1.6;letter-spacing:-0.02em;">
-      <span class="dim">Sellers get paid into</span> <span class="blue">Square Balance</span><br/>
-      <span class="dim">They pay bills from</span> <span class="white">Bill Pay</span><br/>
-      <span class="dim">They fund it</span> <span class="white">their way</span><br/>
-      <span class="dim">It repays itself from</span> <span class="blue">daily sales</span>
+  <div class="q-layout">
+
+    <!-- Left: what's coming -->
+    <div class="q-left">
+      <div class="q-header" style="color:#006AFF;">Q2 2026 — Connecting the System 🚀</div>
+
+      <div class="q-item">
+        <div class="q-item-title">Pay Anyone</div>
+        <div class="q-item-stat">Pay any vendor — even without cards · Fund with balance or <strong>Credit Card for 60-day float</strong> · Square delivers via ACH or check</div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-item-title">Smart Repayment</div>
+        <div class="q-item-stat">CC balance auto-paid from daily sales · Set the goal, we handle the rest · <strong>First ever for a credit card</strong></div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-item-title">High Yield Savings</div>
+        <div class="q-item-stat"><strong>3.75% APY</strong> · Mid-May launch · CC rewards auto-sweep in · Grows balance sheet for lending</div>
+      </div>
     </div>
+
+    <!-- Right: product shots -->
+    <div class="q-right">
+      <!-- Shot 1: Pay Anyone (hero) -->
+      <div class="browser-mock" style="max-width:480px;box-shadow:0 0 40px rgba(0,106,255,.08);">
+        <div class="browser-mock-bar">
+          <div class="bmd" style="background:#ff5f57;"></div>
+          <div class="bmd" style="background:#ffbd2e;"></div>
+          <div class="bmd" style="background:#28c840;"></div>
+          <div style="flex:1;text-align:center;font-size:9px;color:#444;">squareup.com/dashboard/pay-anyone</div>
+        </div>
+        <div class="browser-mock-content" style="min-height:180px;">
+          <div class="product-shot-label">Pay Anyone</div>
+          <div class="product-shot-sub">Any vendor · Any method · 60-day float</div>
+          <div class="replace-tag">[REPLACE: Pay Anyone product demo]</div>
+        </div>
+      </div>
+
+      <!-- Shot 2: Smart Repay + HYS -->
+      <div style="display:flex;gap:16px;width:100%;max-width:480px;">
+        <div class="browser-mock" style="flex:1;">
+          <div class="browser-mock-bar">
+            <div class="bmd" style="background:#ff5f57;"></div>
+            <div class="bmd" style="background:#ffbd2e;"></div>
+            <div class="bmd" style="background:#28c840;"></div>
+          </div>
+          <div class="browser-mock-content" style="min-height:120px;">
+            <div class="product-shot-label" style="font-size:12px;">Smart Repay</div>
+            <div class="replace-tag">[REPLACE: Repay UI]</div>
+          </div>
+        </div>
+        <div class="phone-mock">
+          <div class="phone-mock-notch"></div>
+          <div class="phone-mock-screen">
+            <div class="product-shot-label" style="font-size:12px;">HYS</div>
+            <div style="font-size:20px;font-weight:800;color:#00D632;">3.75%</div>
+            <div class="product-shot-sub">APY</div>
+            <div class="replace-tag" style="bottom:8px;">[REPLACE: HYS screen]</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
-  <div class="slide-footer">
-    <span>Square Banking</span><span>4</span>
-  </div>
+  <div class="sf"><span>Square Banking</span><span>4</span></div>
 </div>
 
-<!-- ====== SLIDE 5: The loop diagram ====== -->
+<!-- ====================================================== -->
+<!-- SLIDE 5: Vision — Tools → System → Managerbot → $1B     -->
+<!-- ====================================================== -->
 <div class="slide" id="s5">
-  <div class="loop-wrap">
-    <svg style="position:absolute;top:0;left:0;width:100%;height:100%;" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg">
-      <!-- Circular flow -->
-      <path class="flow-line-blue" d="M 350,80 Q 580,80 600,350"/>
-      <path class="flow-line" d="M 600,350 Q 580,560 420,620"/>
-      <path class="flow-line" d="M 280,620 Q 120,560 100,350"/>
-      <path class="flow-line-blue" d="M 100,350 Q 120,140 350,80"/>
-    </svg>
-
-    <!-- Center -->
-    <div class="loop-center">
-      <div class="loop-center-label">Square Balance & Savings</div>
-      <div class="loop-center-big">Where money lives,<br/>moves, and grows</div>
-    </div>
-
-    <!-- Top -->
-    <div class="loop-node" style="top:6%;left:50%;">
-      <div class="loop-node-word" style="color:#006AFF;">Get Paid</div>
-      <div class="loop-node-sub">Card payments settle instantly</div>
-    </div>
-
-    <!-- Right -->
-    <div class="loop-node" style="top:50%;left:92%;">
-      <div class="loop-node-word">Bill Pay</div>
-      <div class="loop-node-sub">All vendor bills, one place</div>
-    </div>
-
-    <!-- Bottom -->
-    <div class="loop-node" style="top:92%;left:50%;">
-      <div class="loop-node-word">Pay Your Way</div>
-      <div class="loop-node-sub">Balance · Credit Card · ACH</div>
-    </div>
-
-    <!-- Left -->
-    <div class="loop-node" style="top:50%;left:8%;">
-      <div class="loop-node-word" style="color:#006AFF;">Auto-Repay</div>
-      <div class="loop-node-sub">From daily sales</div>
-    </div>
-
-  </div>
-
-  <div class="slide-footer">
-    <span>Square Banking</span><span>5</span>
-  </div>
-</div>
-
-<!-- ====== SLIDE 6: The wedge ====== -->
-<div class="slide" id="s6">
-  <div class="center-text">
-    <div class="small-text" style="margin-bottom:40px;">The wedge</div>
-    <div style="font-size:72px;font-weight:800;line-height:1.4;letter-spacing:-0.02em;">
-      Bill Pay gets them spending<br/>from their balance.
-    </div>
-    <div style="font-size:72px;font-weight:800;line-height:1.4;letter-spacing:-0.02em;margin-top:20px;">
-      Credit Card gives them<br/><span class="blue">60 days of float.</span>
-    </div>
-    <div style="font-size:72px;font-weight:800;line-height:1.4;letter-spacing:-0.02em;margin-top:20px;">
-      Smart Repay pays it back<br/><span class="blue">from daily sales.</span>
-    </div>
-    <div style="font-size:72px;font-weight:800;line-height:1.4;letter-spacing:-0.02em;margin-top:20px;">
-      Rewards grow in<br/><span class="green">Savings at 3.75%.</span>
-    </div>
-  </div>
-  <div class="slide-footer">
-    <span>Square Banking</span><span>6</span>
-  </div>
-</div>
-
-<!-- ====== SLIDE 7: Q1 → Q2 ====== -->
-<div class="slide" id="s7">
-  <div class="center-text" style="max-width:1600px;">
-    <div style="display:flex;gap:120px;align-items:flex-start;">
-      <!-- Q1 -->
-      <div style="flex:1;text-align:left;">
-        <div style="font-size:18px;font-weight:700;color:#444;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:32px;">Q1 Built</div>
-        <div style="font-size:36px;font-weight:700;color:#555;line-height:2;">
-          Checking as Default <span style="color:#333;">— 61%</span><br/>
-          Bill Pay <span style="color:#333;">— own entry point</span><br/>
-          Credit Card <span style="color:#333;">— 50K cards</span>
-        </div>
-      </div>
-      <!-- Arrow -->
-      <div style="font-size:48px;color:#222;padding-top:80px;">→</div>
-      <!-- Q2 -->
-      <div style="flex:1;text-align:left;">
-        <div style="font-size:18px;font-weight:700;color:#006AFF;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:32px;">Q2 Connects</div>
-        <div style="font-size:36px;font-weight:700;color:#fff;line-height:2;">
-          Pay Anyone <span style="color:#006AFF;">— any vendor, any method</span><br/>
-          Smart Repay <span style="color:#006AFF;">— first ever for CC</span><br/>
-          High Yield Savings <span style="color:#006AFF;">— 3.75% APY</span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="slide-footer">
-    <span>Square Banking</span><span>7</span>
-  </div>
-</div>
-
-<!-- ====== SLIDE 8: The horizon ====== -->
-<div class="slide" id="s8">
   <div class="center-text">
     <div style="display:flex;align-items:baseline;justify-content:center;gap:60px;">
       <div style="text-align:center;">
@@ -348,28 +415,18 @@
         <div style="font-size:14px;color:#444;margin-top:8px;">2027–28</div>
       </div>
     </div>
-    <div class="small-text" style="margin-top:64px;max-width:800px;margin-left:auto;margin-right:auto;">
-      The seller stops being their own CFO.<br/>
-      Square manages it for them.
+    <div class="small-text" style="margin-top:56px;max-width:700px;margin-left:auto;margin-right:auto;">
+      The seller stops being their own CFO.<br/>Square manages it for them.
+    </div>
+    <div style="margin-top:80px;">
+      <div class="big-number" style="color:#006AFF;font-size:120px;">$1B</div>
+      <div class="medium-text" style="margin-top:12px;font-size:32px;">gross profit by 2028</div>
     </div>
   </div>
-  <div class="slide-footer">
-    <span>Square Banking</span><span>8</span>
-  </div>
+  <div class="sf"><span>Square Banking</span><span>5</span></div>
 </div>
 
-<!-- ====== SLIDE 9: The punchline ====== -->
-<div class="slide" id="s9">
-  <div class="center-text">
-    <div class="big-number" style="color:#006AFF;">$1B</div>
-    <div class="medium-text" style="margin-top:24px;">gross profit by 2028</div>
-  </div>
-  <div class="slide-footer">
-    <span>Square Banking</span><span>9</span>
-  </div>
-</div>
-
-</div>
+</div><!-- /slides-wrapper -->
 
 <script>
 document.addEventListener('keydown', (e) => {
