@@ -204,9 +204,15 @@
     <!-- Left: the loop -->
     <div class="loop-wrap" style="flex-shrink:0;">
       <svg style="position:absolute;top:0;left:0;width:100%;height:100%;" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+        <!-- Get Paid → Bill Pay -->
         <path class="fl fl-blue" d="M 300,60 Q 520,60 530,300"/>
-        <path class="fl fl-dim" d="M 530,300 Q 520,480 360,540"/>
-        <path class="fl fl-dim" d="M 240,540 Q 80,480 70,300"/>
+        <!-- Bill Pay → Credit Card -->
+        <path class="fl fl-blue" d="M 530,300 Q 530,440 470,500"/>
+        <!-- Credit Card → Pay Your Way -->
+        <path class="fl fl-dim" d="M 430,530 Q 360,560 300,560"/>
+        <!-- Pay Your Way → Auto-Repay -->
+        <path class="fl fl-dim" d="M 240,540 Q 140,500 120,440"/>
+        <!-- Auto-Repay → Balance -->
         <path class="fl fl-blue" d="M 70,300 Q 80,120 300,60"/>
       </svg>
       <div class="loop-center">
@@ -221,11 +227,15 @@
         <div class="loop-node-word">Bill Pay</div>
         <div class="loop-node-sub">All vendor bills, one place</div>
       </div>
+      <div class="loop-node" style="top:80%;left:82%;">
+        <div class="loop-node-word" style="color:#006AFF;">Credit Card</div>
+        <div class="loop-node-sub">60-day float · 1.5% cash back</div>
+      </div>
       <div class="loop-node" style="top:94%;left:50%;">
         <div class="loop-node-word">Pay Your Way</div>
         <div class="loop-node-sub">Balance · Credit Card · ACH</div>
       </div>
-      <div class="loop-node" style="top:50%;left:6%;">
+      <div class="loop-node" style="top:80%;left:18%;">
         <div class="loop-node-word" style="color:#006AFF;">Auto-Repay</div>
         <div class="loop-node-sub">From daily sales</div>
       </div>
@@ -236,7 +246,8 @@
       <div style="font-size:52px;font-weight:800;line-height:1.5;letter-spacing:-0.02em;">
         <span class="dim">Sellers get paid into</span> <span class="blue">Square Balance</span><br/>
         <span class="dim">They pay bills from</span> <span class="white">Bill Pay</span><br/>
-        <span class="dim">They fund it</span> <span class="white">their way</span><br/>
+        <span class="dim">They finance with</span> <span class="blue">Credit Card</span><br/>
+        <span class="dim">They pay</span> <span class="white">their way</span><br/>
         <span class="dim">It repays itself from</span> <span class="blue">daily sales</span>
       </div>
       <div style="margin-top:40px;font-size:24px;color:#444;line-height:1.5;">
@@ -333,13 +344,13 @@
       <div class="q-header" style="color:#006AFF;">Q2 2026 — Connecting the System 🚀</div>
 
       <div class="q-item">
-        <div class="q-item-title">Pay Anyone</div>
-        <div class="q-item-stat">Pay any vendor — even without cards · Fund with balance or <strong>Credit Card for 60-day float</strong> · Square delivers via ACH or check</div>
+        <div class="q-item-title">Credit Card → 100% of Sellers</div>
+        <div class="q-item-stat">Full rollout to all eligible sellers · <strong>$1B annualized spend target</strong> · 1.5% cash back · Smart repayment from daily sales</div>
       </div>
 
       <div class="q-item">
-        <div class="q-item-title">Smart Repayment</div>
-        <div class="q-item-stat">CC balance auto-paid from daily sales · Set the goal, we handle the rest · <strong>First ever for a credit card</strong></div>
+        <div class="q-item-title">Pay Anyone</div>
+        <div class="q-item-stat">Pay any vendor — even without cards · Fund with balance or <strong>Credit Card for 60-day float</strong> · Square delivers via ACH or check</div>
       </div>
 
       <div class="q-item">
@@ -350,42 +361,46 @@
 
     <!-- Right: product shots -->
     <div class="q-right">
-      <!-- Shot 1: Pay Anyone (hero) -->
-      <div class="browser-mock" style="max-width:480px;box-shadow:0 0 40px rgba(0,106,255,.08);">
-        <div class="browser-mock-bar">
-          <div class="bmd" style="background:#ff5f57;"></div>
-          <div class="bmd" style="background:#ffbd2e;"></div>
-          <div class="bmd" style="background:#28c840;"></div>
-          <div style="flex:1;text-align:center;font-size:9px;color:#444;">squareup.com/dashboard/pay-anyone</div>
+      <!-- Shot 1: Credit Card + Pay Anyone (hero, side by side) -->
+      <div style="display:flex;gap:16px;width:100%;max-width:500px;">
+        <div class="browser-mock" style="flex:1;box-shadow:0 0 40px rgba(0,106,255,.1);">
+          <div class="browser-mock-bar">
+            <div class="bmd" style="background:#ff5f57;"></div>
+            <div class="bmd" style="background:#ffbd2e;"></div>
+            <div class="bmd" style="background:#28c840;"></div>
+          </div>
+          <div class="browser-mock-content" style="min-height:160px;">
+            <div style="width:90%;aspect-ratio:1.586/1;background:linear-gradient(135deg,#0a1a3a,#006AFF 120%);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;margin-bottom:8px;">
+              <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.7);letter-spacing:0.06em;">SQUARE</div>
+              <div style="font-size:9px;color:rgba(255,255,255,.4);">···· ···· ···· 4821</div>
+            </div>
+            <div class="product-shot-label" style="font-size:12px;">Credit Card</div>
+            <div class="product-shot-sub">100% rollout · $1B spend target</div>
+            <div class="replace-tag">[REPLACE: CC card + dashboard]</div>
+          </div>
         </div>
-        <div class="browser-mock-content" style="min-height:180px;">
-          <div class="product-shot-label">Pay Anyone</div>
-          <div class="product-shot-sub">Any vendor · Any method · 60-day float</div>
-          <div class="replace-tag">[REPLACE: Pay Anyone product demo]</div>
-        </div>
-      </div>
-
-      <!-- Shot 2: Smart Repay + HYS -->
-      <div style="display:flex;gap:16px;width:100%;max-width:480px;">
         <div class="browser-mock" style="flex:1;">
           <div class="browser-mock-bar">
             <div class="bmd" style="background:#ff5f57;"></div>
             <div class="bmd" style="background:#ffbd2e;"></div>
             <div class="bmd" style="background:#28c840;"></div>
           </div>
-          <div class="browser-mock-content" style="min-height:120px;">
-            <div class="product-shot-label" style="font-size:12px;">Smart Repay</div>
-            <div class="replace-tag">[REPLACE: Repay UI]</div>
+          <div class="browser-mock-content" style="min-height:160px;">
+            <div class="product-shot-label" style="font-size:12px;">Pay Anyone</div>
+            <div class="product-shot-sub">Any vendor · Any method</div>
+            <div class="replace-tag">[REPLACE: Pay Anyone demo]</div>
           </div>
         </div>
-        <div class="phone-mock">
-          <div class="phone-mock-notch"></div>
-          <div class="phone-mock-screen">
-            <div class="product-shot-label" style="font-size:12px;">HYS</div>
-            <div style="font-size:20px;font-weight:800;color:#00D632;">3.75%</div>
-            <div class="product-shot-sub">APY</div>
-            <div class="replace-tag" style="bottom:8px;">[REPLACE: HYS screen]</div>
-          </div>
+      </div>
+
+      <!-- Shot 2: HYS -->
+      <div class="phone-mock">
+        <div class="phone-mock-notch"></div>
+        <div class="phone-mock-screen">
+          <div class="product-shot-label" style="font-size:12px;">High Yield Savings</div>
+          <div style="font-size:24px;font-weight:800;color:#00D632;">3.75%</div>
+          <div class="product-shot-sub">APY · Rewards sweep in</div>
+          <div class="replace-tag" style="bottom:8px;">[REPLACE: HYS screen]</div>
         </div>
       </div>
     </div>
