@@ -15,377 +15,317 @@
     font-family: system-ui, -apple-system, 'SF Pro Display', 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
   }
-
   .slide {
-    width: 1920px;
-    height: 1080px;
-    background: #000;
-    position: relative;
+    width: 1920px; height: 1080px;
+    background: #000; position: relative;
     transform-origin: top center;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
-
   @media (max-width: 1960px) {
     .slide { transform: scale(calc((100vw - 40px) / 1920)); }
   }
 
-  /* The loop container */
-  .loop-container {
+  /* ===== HEADER ===== */
+  .slide-header {
+    position: absolute; top: 48px; left: 80px;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #006AFF;
+  }
+
+  /* ===== CENTER HUB — Square Balance ===== */
+  .hub {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -54%);
+    display: flex; flex-direction: column;
+    align-items: center; gap: 12px;
+    z-index: 10;
+  }
+  .hub-ring {
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #0d2a5c, #050e24 60%, #000);
+    border: 2.5px solid rgba(0,106,255,0.5);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 6px;
     position: relative;
-    width: 800px;
-    height: 800px;
   }
-
-  /* Circular track */
-  .loop-track {
-    position: absolute;
-    top: 50%; left: 50%;
-    width: 520px; height: 520px;
-    transform: translate(-50%, -50%);
+  .hub-outer-ring {
+    position: absolute; top: -16px; left: -16px;
+    width: 272px; height: 272px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,106,255,0.12);
   }
-
-  /* Animated dashed orbit */
-  .orbit-ring {
-    position: absolute;
-    top: 50%; left: 50%;
-    width: 520px; height: 520px;
-    transform: translate(-50%, -50%);
+  .hub-icon { font-size: 36px; }
+  .hub-title {
+    font-size: 20px; font-weight: 800; color: #fff;
+    letter-spacing: 0.02em; text-transform: uppercase;
   }
+  .hub-subtitle {
+    font-size: 12px; color: rgba(0,106,255,0.7); font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .hub-detail {
+    font-size: 13px; color: #666; text-align: center; line-height: 1.5;
+    max-width: 200px;
+  }
+  @keyframes hubPulse {
+    0%, 100% { box-shadow: 0 0 60px rgba(0,106,255,0.15), inset 0 0 40px rgba(0,106,255,0.05); }
+    50% { box-shadow: 0 0 90px rgba(0,106,255,0.25), inset 0 0 60px rgba(0,106,255,0.08); }
+  }
+  .hub-ring { animation: hubPulse 3s ease-in-out infinite; }
 
-  /* Nodes positioned around the circle */
+  /* ===== OUTER NODES ===== */
   .node {
     position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 8px;
     transform: translate(-50%, -50%);
+    z-index: 5;
   }
-
-  .node-circle {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 4px;
+  .node-pill {
+    padding: 16px 28px;
+    border-radius: 60px;
+    display: flex; align-items: center; gap: 12px;
     transition: transform 0.3s ease;
+    cursor: default;
   }
-
-  .node-circle:hover {
-    transform: scale(1.08);
-  }
-
-  .node-icon {
-    font-size: 32px;
-    line-height: 1;
-  }
-
-  .node-name {
-    font-size: 14px;
-    font-weight: 800;
-    color: #fff;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-
+  .node-pill:hover { transform: scale(1.05); }
+  .node-icon { font-size: 22px; line-height: 1; }
+  .node-label { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: 0.02em; }
   .node-sub {
-    font-size: 13px;
-    color: #888;
-    text-align: center;
-    max-width: 160px;
-    line-height: 1.4;
+    font-size: 12px; color: #666; text-align: center;
+    max-width: 200px; line-height: 1.45;
   }
 
-  /* Checking — top */
-  .node-checking {
-    top: 40px;
-    left: 50%;
-  }
-  .node-checking .node-circle {
-    background: radial-gradient(circle at 30% 30%, #1a3a6a, #0a1a3a);
-    border: 2px solid #006AFF;
-    box-shadow: 0 0 40px rgba(0,106,255,0.2);
+  /* ===== BILL PAY — Top Right ===== */
+  .node-billpay { top: 18%; left: 76%; }
+  .node-billpay .node-pill {
+    background: #111; border: 1.5px solid #333;
   }
 
-  /* Bill Pay — right */
-  .node-billpay {
-    top: 50%;
-    left: calc(100% - 40px);
-  }
-  .node-billpay .node-circle {
-    background: radial-gradient(circle at 30% 30%, #1a2a1a, #0a1a0a);
-    border: 2px solid #444;
-    box-shadow: 0 0 30px rgba(255,255,255,0.04);
-  }
-
-  /* Credit Card — bottom */
-  .node-cc {
-    top: calc(100% - 40px);
-    left: 50%;
-  }
-  .node-cc .node-circle {
-    background: radial-gradient(circle at 30% 30%, #1a3a6a, #0a1a3a);
-    border: 2px solid #006AFF;
-    box-shadow: 0 0 40px rgba(0,106,255,0.2);
-  }
-
-  /* Bill Pay — left (auto-repay return) */
-  .node-repay {
-    top: 50%;
-    left: 40px;
-  }
-  .node-repay .node-circle {
-    background: radial-gradient(circle at 30% 30%, #1a2a1a, #0a1a0a);
-    border: 2px solid #444;
-    box-shadow: 0 0 30px rgba(255,255,255,0.04);
-  }
-
-  /* Savings — center */
-  .node-savings {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  /* ===== PAY YOUR WAY — Right ===== */
+  .node-payyourway { top: 55%; left: 82%; }
+  .node-payyourway .node-pill {
+    background: rgba(0,106,255,0.08);
+    border: 2px solid rgba(0,106,255,0.35);
+    flex-direction: column; align-items: flex-start;
+    padding: 18px 24px; border-radius: 16px;
     gap: 8px;
   }
-
-  .savings-circle {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 40% 40%, #0a2a0a, #000);
-    border: 2px solid rgba(0,214,50,0.4);
-    box-shadow: 0 0 60px rgba(0,214,50,0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 4px;
+  .pay-option {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; color: #aaa;
+  }
+  .pay-option-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #444; flex-shrink: 0;
+  }
+  .pay-option-dot.blue { background: #006AFF; }
+  .pay-option strong { color: #fff; font-weight: 600; }
+  .pay-option .tag {
+    font-size: 9px; font-weight: 700; color: #006AFF;
+    background: rgba(0,106,255,0.12); padding: 2px 6px;
+    border-radius: 4px; letter-spacing: 0.04em;
+    margin-left: 4px;
   }
 
-  .savings-label {
-    font-size: 13px;
-    color: #00D632;
-    font-weight: 600;
+  /* ===== CREDIT CARD — Bottom ===== */
+  .node-cc { top: 85%; left: 55%; }
+  .node-cc .node-pill {
+    background: linear-gradient(135deg, rgba(0,106,255,0.1), rgba(0,106,255,0.03));
+    border: 2px solid rgba(0,106,255,0.4);
   }
 
-  /* Flow arrows — SVG */
-  .flow-arrows {
-    position: absolute;
-    top: 0; left: 0;
+  /* ===== AUTO-REPAY — Left ===== */
+  .node-repay { top: 55%; left: 18%; }
+  .node-repay .node-pill {
+    background: #111; border: 1.5px solid #333;
+  }
+
+  /* ===== SAVINGS — Bottom Left ===== */
+  .node-savings { top: 85%; left: 30%; }
+  .node-savings .node-pill {
+    background: rgba(0,214,50,0.05);
+    border: 1.5px solid rgba(0,214,50,0.3);
+  }
+  @keyframes savingsPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(0,214,50,0.05); }
+    50% { box-shadow: 0 0 35px rgba(0,214,50,0.12); }
+  }
+  .node-savings .node-pill { animation: savingsPulse 3s ease-in-out infinite; }
+
+  /* ===== INFLOWS — Top Left ===== */
+  .node-inflows { top: 18%; left: 24%; }
+  .node-inflows .node-pill {
+    background: #111; border: 1.5px solid #333;
+  }
+
+  /* ===== FLOW ARROWS ===== */
+  .flow-svg {
+    position: absolute; top: 0; left: 0;
     width: 100%; height: 100%;
-    pointer-events: none;
+    pointer-events: none; z-index: 1;
   }
-
-  /* Arrow animation */
   @keyframes flowDash {
     to { stroke-dashoffset: -40; }
   }
+  .flow { fill: none; stroke-width: 2; stroke-dasharray: 10, 7; animation: flowDash 1.8s linear infinite; }
+  .flow-dim { stroke: #2a2a2a; }
+  .flow-blue { stroke: rgba(0,106,255,0.35); stroke-width: 2.5; }
+  .flow-green { stroke: rgba(0,214,50,0.25); stroke-width: 2; }
+  .ah { fill: #444; }
+  .ah-blue { fill: rgba(0,106,255,0.5); }
+  .ah-green { fill: rgba(0,214,50,0.35); }
 
-  .flow-path {
-    fill: none;
-    stroke: #333;
-    stroke-width: 2;
-    stroke-dasharray: 12, 8;
-    animation: flowDash 1.5s linear infinite;
+  /* ===== ARROW LABELS ===== */
+  .alabel {
+    position: absolute; font-size: 10px; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: #444; white-space: nowrap; z-index: 2;
   }
+  .alabel-blue { color: rgba(0,106,255,0.5); }
+  .alabel-green { color: rgba(0,214,50,0.4); }
 
-  .flow-path-blue {
-    stroke: rgba(0,106,255,0.4);
-    stroke-width: 2.5;
-    stroke-dasharray: 12, 8;
-    animation: flowDash 1.5s linear infinite;
-  }
-
-  /* Arrow heads */
-  .arrow-head {
-    fill: #555;
-  }
-  .arrow-head-blue {
-    fill: rgba(0,106,255,0.6);
-  }
-
-  /* Action labels on the arrows */
-  .arrow-label {
-    position: absolute;
-    font-size: 11px;
-    color: #555;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  /* Tagline */
+  /* ===== TAGLINE ===== */
   .tagline {
-    position: absolute;
-    bottom: 100px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
+    position: absolute; bottom: 72px; left: 50%;
+    transform: translateX(-50%); text-align: center;
   }
-
   .tagline-text {
-    font-size: 28px;
-    font-weight: 600;
-    color: #fff;
-    letter-spacing: -0.01em;
-    line-height: 1.4;
+    font-size: 28px; font-weight: 600; color: #fff;
+    letter-spacing: -0.01em; line-height: 1.4;
   }
-
-  .tagline-text em {
-    font-style: normal;
-    color: #006AFF;
-  }
-
-  /* Header */
-  .slide-header {
-    position: absolute;
-    top: 48px;
-    left: 80px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .slide-tag {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #006AFF;
-  }
-
-  /* Rewards sweep label */
-  .sweep-label {
-    position: absolute;
-    font-size: 10px;
-    color: rgba(0,214,50,0.5);
-    font-weight: 600;
-    letter-spacing: 0.04em;
-  }
-
-  /* Subtle pulse on savings */
-  @keyframes savingsPulse {
-    0%, 100% { box-shadow: 0 0 60px rgba(0,214,50,0.1); }
-    50% { box-shadow: 0 0 80px rgba(0,214,50,0.18); }
-  }
-  .savings-circle {
-    animation: savingsPulse 3s ease-in-out infinite;
-  }
-
-  /* Subtle pulse on checking */
-  @keyframes checkingPulse {
-    0%, 100% { box-shadow: 0 0 40px rgba(0,106,255,0.2); }
-    50% { box-shadow: 0 0 60px rgba(0,106,255,0.3); }
-  }
-  .node-checking .node-circle,
-  .node-cc .node-circle {
-    animation: checkingPulse 3s ease-in-out infinite;
-  }
+  .tagline-text em { font-style: normal; color: #006AFF; }
 </style>
 </head>
 <body>
 
 <div class="slide">
 
-  <!-- Header -->
-  <div class="slide-header">
-    <span class="slide-tag">Square Banking</span>
+  <div class="slide-header">Square Banking</div>
+
+  <!-- ===== FLOW ARROWS (SVG) ===== -->
+  <svg class="flow-svg" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <marker id="a1" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" class="ah"/></marker>
+      <marker id="a2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" class="ah-blue"/></marker>
+      <marker id="a3" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" class="ah-green"/></marker>
+    </defs>
+
+    <!-- Inflows → Hub (card payments settle) -->
+    <path class="flow flow-blue" d="M 520,210 Q 700,260 820,380" marker-end="url(#a2)"/>
+
+    <!-- Hub → Bill Pay (spend from balance) -->
+    <path class="flow flow-dim" d="M 1060,420 Q 1200,320 1350,220" marker-end="url(#a1)"/>
+
+    <!-- Bill Pay → Pay Your Way -->
+    <path class="flow flow-dim" d="M 1440,260 Q 1500,380 1500,480" marker-end="url(#a1)"/>
+
+    <!-- Pay Your Way → Credit Card (when using CC) -->
+    <path class="flow flow-blue" d="M 1460,640 Q 1300,800 1100,870" marker-end="url(#a2)"/>
+
+    <!-- Credit Card → Auto-Repay -->
+    <path class="flow flow-dim" d="M 900,890 Q 600,880 420,680" marker-end="url(#a1)"/>
+
+    <!-- Auto-Repay → Hub (money returns) -->
+    <path class="flow flow-blue" d="M 360,520 Q 500,440 780,440" marker-end="url(#a2)"/>
+
+    <!-- Hub → Savings (rewards sweep) -->
+    <path class="flow flow-green" d="M 880,560 Q 750,740 640,850" marker-end="url(#a3)"/>
+
+    <!-- Savings → Hub (deposits fund lending) -->
+    <path class="flow flow-green" d="M 540,840 Q 580,680 820,520" marker-end="url(#a3)" style="stroke-dasharray:6,8;opacity:0.5;"/>
+
+    <!-- Pay Your Way → Hub direct (balance payment, no CC) -->
+    <path class="flow flow-dim" d="M 1440,560 Q 1250,500 1080,460" marker-end="url(#a1)" style="opacity:0.4;stroke-dasharray:6,8;"/>
+  </svg>
+
+  <!-- ===== ARROW LABELS ===== -->
+  <div class="alabel alabel-blue" style="top:215px;left:580px;">card payments settle</div>
+  <div class="alabel" style="top:280px;left:1120px;">spend from balance</div>
+  <div class="alabel" style="top:370px;right:200px;">choose how to pay</div>
+  <div class="alabel alabel-blue" style="top:770px;right:310px;">fund with credit card</div>
+  <div class="alabel" style="bottom:170px;left:580px;">60-day float</div>
+  <div class="alabel alabel-blue" style="top:440px;left:480px;">auto-repay from sales</div>
+  <div class="alabel alabel-green" style="top:710px;left:660px;">rewards sweep</div>
+
+  <!-- ===== CENTER HUB ===== -->
+  <div class="hub">
+    <div class="hub-ring">
+      <div class="hub-outer-ring"></div>
+      <div class="hub-icon">☐</div>
+      <div class="hub-title">Square Balance</div>
+      <div class="hub-subtitle">Checking · Debit · Settled Payments</div>
+    </div>
+    <div class="hub-detail">Every dollar flows through here.<br/>Instant access. Zero fees.</div>
   </div>
 
-  <!-- The Loop -->
-  <div class="loop-container">
-
-    <!-- Flow arrows (SVG) -->
-    <svg class="flow-arrows" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
-      <!-- Top to Right (Checking → Bill Pay) -->
-      <path class="flow-path" d="M 440,120 Q 620,120 660,300" />
-      <polygon class="arrow-head" points="654,298 666,298 660,312" />
-
-      <!-- Right to Bottom (Bill Pay → Credit Card) -->
-      <path class="flow-path-blue" d="M 660,500 Q 620,680 440,700" />
-      <polygon class="arrow-head-blue" points="442,694 442,706 428,700" />
-
-      <!-- Bottom to Left (Credit Card → Auto-repay) -->
-      <path class="flow-path" d="M 360,700 Q 180,680 140,500" />
-      <polygon class="arrow-head" points="134,502 146,502 140,488" />
-
-      <!-- Left to Top (Auto-repay → Checking) -->
-      <path class="flow-path-blue" d="M 140,300 Q 180,120 360,100" />
-      <polygon class="arrow-head-blue" points="358,94 358,106 372,100" />
-
-      <!-- Rewards sweep lines to center (subtle) -->
-      <line x1="400" y1="160" x2="400" y2="310" stroke="rgba(0,214,50,0.12)" stroke-width="1" stroke-dasharray="4,6" />
-      <line x1="640" y1="400" x2="490" y2="400" stroke="rgba(0,214,50,0.12)" stroke-width="1" stroke-dasharray="4,6" />
-      <line x1="400" y1="640" x2="400" y2="490" stroke="rgba(0,214,50,0.12)" stroke-width="1" stroke-dasharray="4,6" />
-      <line x1="160" y1="400" x2="310" y2="400" stroke="rgba(0,214,50,0.12)" stroke-width="1" stroke-dasharray="4,6" />
-    </svg>
-
-    <!-- Checking — Top -->
-    <div class="node node-checking">
-      <div class="node-circle">
-        <div class="node-icon">☐</div>
-        <div class="node-name">Checking</div>
-      </div>
-      <div class="node-sub">The money hub<br/>Get paid instantly</div>
+  <!-- ===== INFLOWS — Top Left ===== -->
+  <div class="node node-inflows">
+    <div class="node-pill">
+      <div class="node-icon">💰</div>
+      <div class="node-label">Card Payments</div>
     </div>
-
-    <!-- Bill Pay — Right -->
-    <div class="node node-billpay">
-      <div class="node-circle">
-        <div class="node-icon">→</div>
-        <div class="node-name">Bill Pay</div>
-      </div>
-      <div class="node-sub">Pay vendors from<br/>your balance</div>
-    </div>
-
-    <!-- Credit Card — Bottom -->
-    <div class="node node-cc">
-      <div class="node-circle">
-        <div class="node-icon">💳</div>
-        <div class="node-name">Credit Card</div>
-      </div>
-      <div class="node-sub">Float & expense<br/>financing</div>
-    </div>
-
-    <!-- Auto-repay — Left -->
-    <div class="node node-repay">
-      <div class="node-circle">
-        <div class="node-icon">↻</div>
-        <div class="node-name" style="font-size:12px;">Auto-Repay</div>
-      </div>
-      <div class="node-sub">Paid from<br/>daily sales</div>
-    </div>
-
-    <!-- Savings — Center -->
-    <div class="node-savings">
-      <div class="savings-circle">
-        <div class="node-icon" style="font-size:28px;">🏦</div>
-        <div class="node-name" style="color:#00D632;font-size:13px;">Savings</div>
-      </div>
-      <div class="savings-label">3.75% APY</div>
-      <div style="font-size:11px;color:#555;text-align:center;">Rewards sweep in<br/>Deposits grow balance sheet</div>
-    </div>
-
-    <!-- Arrow action labels -->
-    <div class="arrow-label" style="top:140px;right:80px;">sellers get paid</div>
-    <div class="arrow-label" style="bottom:140px;right:80px;color:rgba(0,106,255,0.5);">pay with credit card</div>
-    <div class="arrow-label" style="bottom:140px;left:40px;">60-day float</div>
-    <div class="arrow-label" style="top:140px;left:30px;color:rgba(0,106,255,0.5);">auto-repay from sales</div>
-
+    <div class="node-sub">Sales settle instantly<br/>into Square Balance</div>
   </div>
 
-  <!-- Tagline -->
+  <!-- ===== BILL PAY — Top Right ===== -->
+  <div class="node node-billpay">
+    <div class="node-pill">
+      <div class="node-icon">📋</div>
+      <div class="node-label">Bill Pay</div>
+    </div>
+    <div class="node-sub">All vendor bills<br/>in one place</div>
+  </div>
+
+  <!-- ===== PAY YOUR WAY — Right ===== -->
+  <div class="node node-payyourway">
+    <div class="node-pill">
+      <div style="font-size:14px;font-weight:800;color:#006AFF;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:4px;">Pay Your Way</div>
+      <div class="pay-option">
+        <div class="pay-option-dot blue"></div>
+        <span><strong>From balance</strong> — instant, $0 cost</span>
+      </div>
+      <div class="pay-option">
+        <div class="pay-option-dot blue"></div>
+        <span><strong>Credit Card</strong> — 60-day float <span class="tag">NEW</span></span>
+      </div>
+      <div class="pay-option">
+        <div class="pay-option-dot"></div>
+        <span><strong>ACH / Check</strong> — Square delivers</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CREDIT CARD — Bottom Right ===== -->
+  <div class="node node-cc">
+    <div class="node-pill">
+      <div class="node-icon">💳</div>
+      <div class="node-label">Credit Card</div>
+    </div>
+    <div class="node-sub">Float & expense financing<br/>1.5% cash back</div>
+  </div>
+
+  <!-- ===== AUTO-REPAY — Left ===== -->
+  <div class="node node-repay">
+    <div class="node-pill">
+      <div class="node-icon">↻</div>
+      <div class="node-label">Smart Repay</div>
+    </div>
+    <div class="node-sub">Set a goal. Auto-paid<br/>from daily sales.</div>
+  </div>
+
+  <!-- ===== SAVINGS — Bottom Left ===== -->
+  <div class="node node-savings">
+    <div class="node-pill">
+      <div class="node-icon">🏦</div>
+      <div class="node-label" style="color:#00D632;">Savings</div>
+    </div>
+    <div class="node-sub" style="color:rgba(0,214,50,0.6);">3.75% APY · Rewards sweep in<br/>Grows balance sheet for lending</div>
+  </div>
+
+  <!-- ===== TAGLINE ===== -->
   <div class="tagline">
     <div class="tagline-text">Every dollar <em>earns</em>, <em>spends</em>, and <em>grows</em> — without ever leaving Square.</div>
   </div>
